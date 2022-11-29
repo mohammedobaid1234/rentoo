@@ -1,0 +1,7 @@
+{
+    "BriskCore": true,
+    "Users": true,
+    "Admin": true,
+    "Vendors": true,
+    "Products": true
+}
