@@ -18,12 +18,12 @@
             <ul class="navbar-nav flex-column">
                 <li class="pt-0 pb-2 px-2">
                     <div class="media align-items-center mb-1 employee">
-                        <img class="rounded-circle" src="{{ \Auth::user()->personal_image_url }}" alt="{{ \Auth::user()->name }}" width="50" />
+                        <img class="rounded-circle" src="{{ \Auth::user()->personal_image_url }}" alt="{{ \Auth::user()->full_name }}" width="50" />
                         <div class="media-body ml-3">
-                            {{-- <h5 class="mb-0 font-weight-semi-bold text-900">{{ \Auth::user()->naem }}h5>
+                            <h6 class="mb-0">{{ \Auth::user()->first_name }}<h6>
                             @foreach (\Auth::user()->roles as $role)
                                 <span class="badge badge-soft-info fs--3 mb-0">{{ $role->label }}</span>
-                            @endforeach --}}
+                            @endforeach
                         </div>
                     </div>
                 </li>
@@ -92,6 +92,16 @@
                                 <div class="d-flex align-items-center">
                                     <span class="nav-link-icon"><span class="fas fa-th-list"></span></span>
                                     <span class="nav-link-text">إدارة المواصفات</span>
+                                </div>
+                            </a>
+                        </li>
+                    @endif
+                    @if(\Auth::user()->can('products_module_products_manage'))
+                        <li class="nav-item @if(isset($activePage['registrations'])) active @endif">
+                            <a class="nav-link" href="{{ url('/') }}/registrations/manage">
+                                <div class="d-flex align-items-center">
+                                    <span class="nav-link-icon"><span class="fas fa-th-list"></span></span>
+                                    <span class="nav-link-text">إدارة الحجوزات</span>
                                 </div>
                             </a>
                         </li>
@@ -176,6 +186,17 @@
                             @if(\Auth::user()->can('users_module_users_manage'))
                             <li class="nav-item @if(isset($activePage['users']) && $activePage['users'] == 'users') active @endif">
                                 <a class="nav-link" href="{{ url('/') }}/users/manage">{{ __('المستخدمين') }}</a>
+                            </li>
+                            @endif
+
+                            @if(\Auth::user()->can('users_module_contact_us_manage'))
+                            <li class="nav-item @if(isset($activePage['users']) && $activePage['users'] == 'contact_us') active @endif">
+                                <a class="nav-link" href="{{ url('/') }}/contact_us/manage">{{ __('الاستفسارات') }}</a>
+                            </li>
+                            @endif
+                            @if(\Auth::user()->can('users_module_rating_manage'))
+                            <li class="nav-item @if(isset($activePage['users']) && $activePage['users'] == 'rating') active @endif">
+                                <a class="nav-link" href="{{ url('/') }}/rating/manage">{{ __('التقيميات') }}</a>
                             </li>
                             @endif
                         </ul>

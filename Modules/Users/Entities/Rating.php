@@ -1,0 +1,18 @@
+<?php
+
+namespace Modules\Users\Entities;
+
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+
+class Rating extends Model{
+    protected $table = 'vn_rating';
+    protected $casts = ['created_at' => 'datetime:Y-m-d H:i:s a'];
+    
+    public function user(){
+        return $this->belongsTo(\Modules\Users\Entities\User::class);
+    }
+    public function product(){
+        return $this->belongsTo(\Modules\Products\Entities\Product::class);
+    }
+}

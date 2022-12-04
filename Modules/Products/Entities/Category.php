@@ -16,7 +16,7 @@ class Category extends Model implements HasMedia{
     protected $table = 'pm_categories';
     protected $casts = ['created_at' => 'datetime:Y-m-d H:i:s a'];
     public $translatable = ['name', 'description'];
-    protected $appends = ['image_url'];
+    protected $appends = ['image_url', 'name_ar'];
     public function registerMediaConversions(\Spatie\MediaLibrary\MediaCollections\Models\Media  $media = null): void{
         $this->addMediaConversion('thumb')
               ->width(400)
@@ -48,6 +48,8 @@ class Category extends Model implements HasMedia{
     public function children(){
         return $this->hasMany(\Modules\Products\Entities\Category::class, 'parent_id');
     }
-
+    public function getNameArAttribute(){
+        return $this->name;
+    }
 }
 

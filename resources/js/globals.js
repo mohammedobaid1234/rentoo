@@ -227,3 +227,157 @@ $(function(){
         });
     });
 });
+function imageRemoveAndAppeared(image_type, $id){
+    $('form').append(`
+    <div class="grid-container"></div>
+    `)
+    $.get($("meta[name='BASE_URL']").attr("content") + '/' + image_type +'/' + $id, {}, function (response, status) {
+        response.forEach(element => {
+         $('.grid-container').append(`
+        <div class="grid-item"><div class="dz-preview dz-processing dz-image-preview dz-complete image_div">  
+             <div class="dz-image">
+                 <img data-dz-thumbnail="" alt="er_model.png" src="${element.url}" style="width: 130px;">
+             </div>  
+             <a class="dz-remove" href="" data-action="remove_image" data-id=${element.name}>Remove file</a>
+         </div>
+        `);
+        });
+ 
+     });
+    setTimeout(() => {
+        $('a[data-action="remove_image"').on('click', function (e) {  
+            e.preventDefault();
+            $name = $(this).attr('data-id');
+            $this = $(this);
+            $.ajaxSetup({
+                headers:{
+                   'X-CSRF-TOKEN': $("meta[name='csrf-token']").attr("content")
+                }
+             })
+             $.ajax({
+                url: $("meta[name='BASE_URL']").attr("content") + "/admin/" + image_type +"/image-remove/"+ $name ,
+                type: 'DELETE',
+                data:{
+                  _token: $("meta[name='csrf-token']").attr("content"),
+                }
+            })
+            .done(function(response) {
+                http.success({ 'message': response.message });
+                $this.parent().remove(); 
+            })
+            .fail(function(response){
+            http.fail(response.responseJSON, true);
+            })
+
+            // $.post($("meta[name='BASE_URL']").attr("content") + "/admin/categories/image-remove/"+ $name , {
+            //   _token: $("meta[name='csrf-token']").attr("content"),
+            // },
+            // function (response, status) {
+            //     http.success({ 'message': response.message });
+            //     $this.parent().remove() 
+            // })
+            // .fail(function (response) {
+            //     http.fail(response.responseJSON, true);
+            // })
+        });
+       }, 1000);
+}
+
+function successfullyResponse(response){
+    if($myDropzone.files.length  != 0){
+        $myDropzone.userId = response.data.id
+        // $myDropzone._token =  $("meta[name='csrf-token']").attr("content")
+        $myDropzone.processQueue();
+        $myDropzone.on("complete", function (file) {
+            if ($myDropzone.getUploadingFiles().length === 0 && $myDropzone.getQueuedFiles().length === 0) {
+                http.success({ 'message': response.message });
+                window.location.reload();
+            }
+        });
+    }else{
+        http.success({ 'message': response.message });
+        window.location.reload();
+    }
+}
+
+function myDropzone($type){
+    $('input[id="btn-submit"]').parent().before(`
+                <div class="container">
+                <div class="card mb-3">
+                <h5 class="card-header"> صور المنتج</h5>
+                <div class="card-body bg-light">
+                        <div class="row" >
+                            <div class="col-12">
+                                <div class="dropzone" id="file-dropzone"></div>
+                            </div>
+                        </div>
+                </div>
+                </div>
+            </div>
+            `
+    )
+    Dropzone.options.fileDropzone = {
+    userId: '',
+    autoProcessQueue: false,
+    method: 'POST',
+    url: $("meta[name='BASE_URL']").attr("content") + '/' + $type+'/image-add',
+    acceptedFiles: ".jpeg,.jpg,.png,.gif",
+    addRemoveLinks: true,
+    parallelUploads: 10,
+    headers: {
+    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    },
+    init: function() {
+        var myDropzone = this;
+        $myDropzone = myDropzone;
+        myDropzone.on('sending', function(file, xhr, formData){
+            formData.append('userId', myDropzone.userId);
+            for (var pair of formData.entries()) {
+            }
+        });
+    },
+    
+    }
+}
+function myDropzoneForModal($type){
+    $('input[id="btn-submit-modal"]').parent().before(`
+            <div class="container">
+                <div class="card mb-3">
+                <h5 class="card-header"> صور المنتج</h5>
+                <div class="card-body bg-light">
+                        <div class="row" >
+                            <div class="col-12">
+                                <div class="dropzone" id="file-dropzone"></div>
+                            </div>
+                        </div>
+                </div>
+                </div>
+            </div>
+            `
+    )
+    Dropzone.autoDiscover = false;
+    var myDropzone = new Dropzone("#file-dropzone", {
+        userId: '',
+        autoProcessQueue: false,
+        method: 'POST',
+        url: $("meta[name='BASE_URL']").attr("content") + '/' + $type+'/image-add',
+        acceptedFiles: ".jpeg,.jpg,.png,.gif",
+        addRemoveLinks: true,
+        parallelUploads: 10,
+        headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        init: function() {
+            var myDropzone = this;
+            $myDropzone = myDropzone;
+            myDropzone.on('sending', function(file, xhr, formData){
+                formData.append('userId', myDropzone.userId);
+                for (var pair of formData.entries()) {
+                }
+            });
+        },
+    });
+   
+   
+}
+

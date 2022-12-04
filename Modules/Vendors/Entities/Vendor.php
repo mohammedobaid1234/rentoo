@@ -52,10 +52,10 @@ class Vendor extends Model implements HasMedia{
         return $this->hasMany(\Modules\Products\Entities\Product::class,'vendor_id');
     }
     public function children(){
-        return $this->hasMany(\Modules\Vendors\Entities\Vendors::class, 'parent_id');
+        return $this->hasMany(\Modules\Vendors\Entities\Vendor::class, 'parent_id');
     }
     public function parent(){
-        return $this->belongsTo(\Modules\Vendors\Entities\Vendors::class, 'parent_id');
+        return $this->belongsTo(\Modules\Vendors\Entities\Vendor::class, 'parent_id');
     }
     
 }

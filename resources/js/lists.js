@@ -44,6 +44,21 @@ let GLOBALS = {
                 }
             });
         },
+        vendors: function (element) {
+            
+            if (element === undefined) {
+                element = $('[data-options_source="vendors"]');
+            }
+
+            $(element).briskSelectOptions({
+                resource: $("meta[name='BASE_URL']").attr("content") + "/vendors",
+                formatters: {
+                    option: {
+                        title: "company_name"
+                    }
+                }
+            });
+        },
         categories: function (element) {
             
             if (element === undefined) {
@@ -54,7 +69,7 @@ let GLOBALS = {
                 resource: $("meta[name='BASE_URL']").attr("content") + "/categories",
                 formatters: {
                     option: {
-                        title: "name"
+                        title: 'name'
                     }
                 }
             });

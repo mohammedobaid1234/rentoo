@@ -33,6 +33,7 @@
         <!-- <link href="{{ asset('/public/themes/Falcon/v2.8.0/assets/lib/select2-theme/select2-bootstrap4.min.css') }}" rel="stylesheet"> -->
         <link href="{{ asset('/public/themes/Falcon/v2.8.0/assets/lib/toastr/toastr.min.css') }}" rel="stylesheet">
         <link href="{{ asset('/public/themes/Falcon/v2.8.0/assets/lib/flatpickr/flatpickr.min.css') }}" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.4.0/min/dropzone.min.css">
 
         <link href="{{ asset('/public/themes/Falcon/v2.8.0/assets/css/theme-rtl.css') }}" rel="stylesheet">
 
@@ -223,6 +224,7 @@
         <script src="{{ asset('/public/themes/Falcon/v2.8.0/assets/lib/select2/select2.min.js') }}"></script>
         <script src="{{ asset('/public/themes/Falcon/v2.8.0/assets/lib/toastr/toastr.min.js') }}"></script>
         <script src="{{ asset('/public/themes/Falcon/v2.8.0/assets/lib/flatpickr/flatpickr.min.js') }}"></script>
+       
 
         <script src="{{ asset('/public/themes/Falcon/v2.8.0/libs/flatpickr/ar.js') }}"></script>
 		<script src="{{ asset('/public/themes/Falcon/v2.8.0/libs/sweetalert/2.1.0/sweetalert.min.js') }}"></script>
@@ -235,6 +237,8 @@
         <script src="{{ asset('/resources/js/globals.js?vid=20211123') }}"></script>
         <script src="{{ asset('/resources/js/http.js') }}"></script>
         <script src="{{ asset('/resources/js/lists.js?vid=20220105') }}"></script>
+        <script> $myDropzone = '' </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.7.0/min/dropzone.min.js"></script>
 
         @yield('javascript')
     </body>

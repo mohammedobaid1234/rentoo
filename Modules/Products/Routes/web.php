@@ -20,9 +20,19 @@ Route::prefix('categories')->as('categories.')->group(function() {
 });
 Route::resource('categories', CategoriesController::class);
 
+Route::prefix('products')->as('products.')->group(function() {
+    Route::get('/manage', 'ProductsController@manage')->name('manage');
+    Route::get('/product-info/{id}', 'ProductsController@showProduct')->name('showProduct');
+    Route::get('/datatable', 'ProductsController@datatable')->name('datatable');
+    Route::get('/attributes/categories/{id}', 'ProductsController@getAttribute')->name('getAttribute');
+    Route::post('/image-add', 'ProductsController@addImage')->name('image_add');
+    Route::delete('/image-remove/{id}', 'ProductsController@removeImage')->name('image_remove');
+    
+});
+Route::resource('products', ProductsController::class);
+
 Route::prefix('category_attribute_types')->as('category_attribute_types.')->group(function() {
     Route::get('/manage', 'CategoryAttributeTypesController@manage')->name('manage');
     Route::get('/datatable', 'CategoryAttributeTypesController@datatable')->name('datatable');
     Route::get('/list/{id}', 'CategoryAttributeTypesController@list')->name('list');
 });
-Route::resource('category_attribute_types', CategoryAttributeTypesController::class);

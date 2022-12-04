@@ -13,6 +13,8 @@ class Product extends Model implements HasMedia{
     use SoftDeletes;
     use HasTranslations;
     use InteractsWithMedia;
+    use \Modules\BriskCore\Traits\ModelTrait;
+
     
     protected $fillable = [
         'product_code','name', 'description','category_id', 'vendor_id', 'currency_id',
@@ -21,7 +23,7 @@ class Product extends Model implements HasMedia{
     protected $table = 'pm_products';
     public $translatable = ['name', 'description'];
     protected $casts = ['created_at' => 'datetime:Y-m-d H:i:s a'];
-    protected $appends = ['image_url', 'price', 'quantity','is_favorite'];
+    protected $appends = ['image_url'];
     public function registerMediaConversions(\Spatie\MediaLibrary\MediaCollections\Models\Media  $media = null): void{
         $this->addMediaConversion('thumb')
               ->width(400)
@@ -44,7 +46,7 @@ class Product extends Model implements HasMedia{
         return $this->belongsTo(\Modules\Products\Entities\Category::class,'category_id');
     }
     public function vendor(){
-        return $this->belongsTo(\Modules\Vendors\Entities\Vendors::class,'vendor_id');
+        return $this->belongsTo(\Modules\Vendors\Entities\Vendor::class,'vendor_id');
     }
     
     public function created_by_user(){
@@ -62,6 +64,9 @@ class Product extends Model implements HasMedia{
     }
     public function offer(){
         return $this->belongsToMany(\Modules\Vendors\Entities\Offer::class, 'vn_offers_products');
+    }
+    public function attributes(){
+        return $this->hasMany(\Modules\Products\Entities\ProductAttribute::class, 'product_id');
     }
 
 }

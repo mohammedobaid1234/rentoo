@@ -18,5 +18,7 @@ class CategoryAttributeType extends Model{
     public function attribute(){
         return $this->belongsTo(\Modules\Products\Entities\AttributeType::class,'attribute_type_id');
     }
-   
+    public function type(){
+        return $this->belongsTo(\Modules\Products\Entities\AttributeType::class, 'attribute_type_id');
+    }
 }

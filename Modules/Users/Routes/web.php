@@ -30,6 +30,21 @@ Route::middleware(['auth'])->group(function() {
         
     
     });
+
+    Route::prefix('registrations')->as('registrations.')->group(function() {
+        Route::get('/manage', 'UserRegistrationController@manage')->name('manage');
+        Route::get('/datatable', 'UserRegistrationController@datatable')->name('datatable');
+    });
+
+    Route::prefix('contact_us')->as('contact_us.')->group(function() {
+        Route::get('/manage', 'ContactUsController@manage')->name('manage');
+        Route::get('/datatable', 'ContactUsController@datatable')->name('datatable');
+    });
+
+    Route::prefix('rating')->as('rating.')->group(function() {
+        Route::get('/manage', 'RatingController@manage')->name('manage');
+        Route::get('/datatable', 'RatingController@datatable')->name('datatable');
+    });
     
 });
     
