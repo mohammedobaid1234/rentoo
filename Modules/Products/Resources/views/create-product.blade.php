@@ -112,7 +112,7 @@
 </script>
 <script>$id = ''</script>
 <script>
-    myDropzone('products')
+    myDropzone('Products')
     $('.js-example-basic-single').select2();
   </script>
 <script>
@@ -147,7 +147,7 @@
         $this.find("button:submit").attr('disabled', true);
         $this.find("button:submit").html('<span class="fas fa-spinner" data-fa-transform="shrink-3"></span>');
 
-        $.post($("meta[name='BASE_URL']").attr("content") + "/products", data,
+        $.post($("meta[name='BASE_URL']").attr("content") + "/Products", data,
         function (response, status) {
             $id = response.data.id;
             $myDropzone.userId = $id
@@ -175,7 +175,7 @@
         getAttributes(this.value);
     });
      function getAttributes(category_id){
-        $.get($("meta[name='BASE_URL']").attr("content") + "/products/attributes/categories/" + category_id , function(response){
+        $.get($("meta[name='BASE_URL']").attr("content") + "/Products/attributes/categories/" + category_id , function(response){
 
             $('#product-attributes .attributes').html("");
 

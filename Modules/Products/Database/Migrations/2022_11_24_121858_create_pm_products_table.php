@@ -13,7 +13,7 @@ class CreatePmProductsTable extends Migration
      */
     public function up()
     {
-        Schema::create('pm_products', function (Blueprint $table) {
+        Schema::create('pm_Products', function (Blueprint $table) {
             $table->id();
             $table->json('name')->nullable();
             $table->json('description')->nullable();
@@ -37,6 +37,6 @@ class CreatePmProductsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('pm_products');
+        Schema::dropIfExists('pm_Products');
     }
 }

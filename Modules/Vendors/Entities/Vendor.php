@@ -48,7 +48,7 @@ class Vendor extends Model implements HasMedia{
         return $this->hasMany(\Modules\Vendors\Entities\TimeLabel::class, 'type_id');
     }
     
-    public function products(){
+    public function Products(){
         return $this->hasMany(\Modules\Products\Entities\Product::class,'vendor_id');
     }
     public function children(){

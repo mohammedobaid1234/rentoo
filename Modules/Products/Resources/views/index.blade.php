@@ -1,9 +1,9 @@
-@extends('products::layouts.master')
+@extends('Products::layouts.master')
 
 @section('content')
     <h1>Hello World</h1>
 
     <p>
-        This view is loaded from module: {!! config('products.name') !!}
+        This view is loaded from module: {!! config('Products.name') !!}
     </p>
 @endsection

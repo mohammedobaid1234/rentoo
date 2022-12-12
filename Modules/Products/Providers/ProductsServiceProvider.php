@@ -15,7 +15,7 @@ class ProductsServiceProvider extends ServiceProvider
     /**
      * @var string $moduleNameLower
      */
-    protected $moduleNameLower = 'products';
+    protected $moduleNameLower = 'Products';
 
     /**
      * Boot the application events.

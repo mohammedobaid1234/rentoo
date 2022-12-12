@@ -17,7 +17,7 @@ class CreateVnRatingTable extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id')->nullable();
             $table->unsignedBigInteger('product_id')->nullable();
-            $table->foreign('product_id')->references('id')->on('pm_products');
+            $table->foreign('product_id')->references('id')->on('pm_Products');
             $table->foreign('user_id')->references('id')->on('um_users');
             $table->enum('rate', [1,2,3,4,5])->nullable();
             $table->text('feedback')->nullable();

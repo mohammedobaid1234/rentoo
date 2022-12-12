@@ -20,7 +20,7 @@ class Product extends Model implements HasMedia{
         'product_code','name', 'description','category_id', 'vendor_id', 'currency_id',
         'price','quantity', 'status_id', 'created_by', 'product_code'
     ];
-    protected $table = 'pm_products';
+    protected $table = 'pm_Products';
     public $translatable = ['name', 'description'];
     protected $casts = ['created_at' => 'datetime:Y-m-d H:i:s a'];
     protected $appends = ['image_url'];
@@ -63,7 +63,7 @@ class Product extends Model implements HasMedia{
         return $this->hasMany(\Modules\Users\Entities\Favorite::class);
     }
     public function offer(){
-        return $this->belongsToMany(\Modules\Vendors\Entities\Offer::class, 'vn_offers_products');
+        return $this->belongsToMany(\Modules\Vendors\Entities\Offer::class, 'vn_offers_Products');
     }
     public function attributes(){
         return $this->hasMany(\Modules\Products\Entities\ProductAttribute::class, 'product_id');

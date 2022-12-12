@@ -39,7 +39,7 @@
             <div class="card-body position-relative">
                 <h6>سلة المشتريات</h6>
                 <div class="display-4 fs-4 mb-2 font-weight-normal text-sans-serif text-info">{{ $carts_count }}</div>
-                <a class="font-weight-semi-bold fs--1 text-nowrap" href="products/carts/manage">مشاهدة الكل<span class="fas fa-angle-left ml-1" data-fa-transform="down-1"></span></a>
+                <a class="font-weight-semi-bold fs--1 text-nowrap" href="Products/carts/manage">مشاهدة الكل<span class="fas fa-angle-left ml-1" data-fa-transform="down-1"></span></a>
             </div>
         </div>
         <div class="text-center">
@@ -51,7 +51,7 @@
             <div class="card-body position-relative">
                 <h6>المفضلة</h6>
                 <div class="display-4 fs-4 mb-2 font-weight-normal text-sans-serif text-info">{{ $wishlists_count }}</div>
-                <a class="font-weight-semi-bold fs--1 text-nowrap" href="products/wishlists/manage">مشاهدة الكل<span class="fas fa-angle-left ml-1" data-fa-transform="down-1"></span></a>
+                <a class="font-weight-semi-bold fs--1 text-nowrap" href="Products/wishlists/manage">مشاهدة الكل<span class="fas fa-angle-left ml-1" data-fa-transform="down-1"></span></a>
             </div>
         </div>
     </div>
@@ -61,21 +61,21 @@
             <div class="card-body position-relative">
                 <h6>التصنيفات</h6>
                 <div class="display-4 fs-4 mb-2 font-weight-normal text-sans-serif text-warning">{{ $categories_count }}</div>
-                <a class="font-weight-semi-bold fs--1 text-nowrap" href="products/categories/manage">مشاهدة الكل<span class="fas fa-angle-left ml-1" data-fa-transform="down-1"></span></a>
+                <a class="font-weight-semi-bold fs--1 text-nowrap" href="Products/categories/manage">مشاهدة الكل<span class="fas fa-angle-left ml-1" data-fa-transform="down-1"></span></a>
             </div>
         </div>
         <div class="card mb-3 overflow-hidden" style="min-width: 12rem">
             <div class="card-body position-relative">
                 <h6>المواصفات</h6>
                 <div class="display-4 fs-4 mb-2 font-weight-normal text-sans-serif text-warning">{{ $product_attributes_count }}</div>
-                <a class="font-weight-semi-bold fs--1 text-nowrap" href="products/attributes/manage">مشاهدة الكل<span class="fas fa-angle-left ml-1" data-fa-transform="down-1"></span></a>
+                <a class="font-weight-semi-bold fs--1 text-nowrap" href="Products/attributes/manage">مشاهدة الكل<span class="fas fa-angle-left ml-1" data-fa-transform="down-1"></span></a>
             </div>
         </div>
         <div class="card mb-3 overflow-hidden" style="min-width: 12rem">
             <div class="card-body position-relative">
                 <h6>المنتجات</h6>
-                <div class="display-4 fs-4 mb-2 font-weight-normal text-sans-serif text-warning">{{ $products_count }}</div>
-                <a class="font-weight-semi-bold fs--1 text-nowrap" href="products/manage">مشاهدة الكل<span class="fas fa-angle-left ml-1" data-fa-transform="down-1"></span></a>
+                <div class="display-4 fs-4 mb-2 font-weight-normal text-sans-serif text-warning">{{ $Products_count }}</div>
+                <a class="font-weight-semi-bold fs--1 text-nowrap" href="Products/manage">مشاهدة الكل<span class="fas fa-angle-left ml-1" data-fa-transform="down-1"></span></a>
             </div>
         </div>
     </div>

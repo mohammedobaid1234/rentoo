@@ -21046,12 +21046,12 @@ span.flatpickr-weekday,
   }
 }
 
-.echart-bar-top-products {
+.echart-bar-top-Products {
   min-height: 18.4375rem;
 }
 
 @media (min-width: 1540px) {
-  .echart-bar-top-products {
+  .echart-bar-top-Products {
     min-height: 250px;
   }
 }

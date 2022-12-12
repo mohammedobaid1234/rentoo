@@ -49,7 +49,7 @@ class Category extends Model implements HasMedia{
         return $this->hasMany(\Modules\Products\Entities\Category::class, 'parent_id');
     }
     public function getNameArAttribute(){
-        return $this->name;
+        return $this->getTranslations('name')['ar'];;
     }
 }
 

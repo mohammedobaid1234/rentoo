@@ -59,11 +59,11 @@
 
             <ul class="navbar-nav flex-column" id="navbarVerticalNav">
                 @if(
-                    \Auth::user()->can('products_module_customers_manage') ||
-                    \Auth::user()->can('products_module_attributes_manage') ||
-                    \Auth::user()->can('products_module_products_manage')
+                    \Auth::user()->can('Products_module_customers_manage') ||
+                    \Auth::user()->can('Products_module_attributes_manage') ||
+                    \Auth::user()->can('Products_module_Products_manage')
                 )
-                    @if(\Auth::user()->can('products_module_categories_manage'))
+                    @if(\Auth::user()->can('Products_module_categories_manage'))
                         <li class="nav-item @if(isset($activePage['categories'])) active @endif">
                             <a class="nav-link" href="{{ url('/') }}/categories/manage">
                                 <div class="d-flex align-items-center">
@@ -75,9 +75,9 @@
                     @endif
 
 
-                    @if(\Auth::user()->can('products_module_products_manage'))
-                        <li class="nav-item @if(isset($activePage['products'])) active @endif">
-                            <a class="nav-link" href="{{ url('/') }}/products/manage">
+                    @if(\Auth::user()->can('Products_module_Products_manage'))
+                        <li class="nav-item @if(isset($activePage['Products'])) active @endif">
+                            <a class="nav-link" href="{{ url('/') }}/Products/manage">
                                 <div class="d-flex align-items-center">
                                     <span class="nav-link-icon"><span class="fas fa-th-list"></span></span>
                                     <span class="nav-link-text">إدارة المنتجات</span>
@@ -86,7 +86,7 @@
                         </li>
                     @endif
 
-                    @if(\Auth::user()->can('products_module_category_attribute_types_manage'))
+                    @if(\Auth::user()->can('Products_module_category_attribute_types_manage'))
                         <li class="nav-item @if(isset($activePage['category_attribute_types'])) active @endif">
                             <a class="nav-link" href="{{ url('/') }}/category_attribute_types/manage">
                                 <div class="d-flex align-items-center">
@@ -96,12 +96,22 @@
                             </a>
                         </li>
                     @endif
-                    @if(\Auth::user()->can('products_module_products_manage'))
+                    @if(\Auth::user()->can('Products_module_Products_manage'))
                         <li class="nav-item @if(isset($activePage['registrations'])) active @endif">
                             <a class="nav-link" href="{{ url('/') }}/registrations/manage">
                                 <div class="d-flex align-items-center">
                                     <span class="nav-link-icon"><span class="fas fa-th-list"></span></span>
                                     <span class="nav-link-text">إدارة الحجوزات</span>
+                                </div>
+                            </a>
+                        </li>
+                    @endif
+                    @if(\Auth::user()->can('Products_module_tags_manage'))
+                        <li class="nav-item @if(isset($activePage['tags'])) active @endif">
+                            <a class="nav-link" href="{{ url('/') }}/tags/manage">
+                                <div class="d-flex align-items-center">
+                                    <span class="nav-link-icon"><span class="fas fa-th-list"></span></span>
+                                    <span class="nav-link-text">إدارة التاجات</span>
                                 </div>
                             </a>
                         </li>

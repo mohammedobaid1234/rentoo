@@ -16,18 +16,18 @@ class ProductsController extends Controller{
     private $model = \Modules\Products\Entities\Product::class;
     
     public function manage(){
-        $this->can('products_module_products_manage', 'view');
-        $data['activePage'] = ['products' => 'products'];
+        $this->can('Products_module_Products_manage', 'view');
+        $data['activePage'] = ['Products' => 'Products'];
         $data['breadcrumb'] = [
             ['title' => "الحجوزات"],
             ['title' => $this->title]
         ];
 
-        return view("products::products", $data);
+        return view("Products::Products", $data);
     }
 
     public function datatable(Request $request){
-        $this->can('products_module_categories_manage');
+        $this->can('Products_module_categories_manage');
 
         $eloquent = $this->model::with(['category','vendor']);
         $filters = [];
@@ -43,12 +43,12 @@ class ProductsController extends Controller{
         return response()->json($this->datatableInitializer($request, $eloquent, $filters, $columns));
     }
     public function create(){
-        return View('products::create-product', ['vendors' => \Modules\Vendors\Entities\Vendor::get(), 'categories' => \Modules\Products\Entities\Category::get() ]);
+        return View('Products::create-product', ['vendors' => \Modules\Vendors\Entities\Vendor::get(), 'categories' => \Modules\Products\Entities\Category::get() ]);
      
     }
     public function edit($id){
         $item = \Modules\Products\Entities\Product::with('attributes')->whereId($id)->first();
-        return View('products::edit-product', ['item' => $item,'vendors' => \Modules\Vendors\Entities\Vendor::get(), 'categories' => \Modules\Products\Entities\Category::get() ]);
+        return View('Products::edit-product', ['item' => $item,'vendors' => \Modules\Vendors\Entities\Vendor::get(), 'categories' => \Modules\Products\Entities\Category::get() ]);
      
     }
     public function showProduct($id){

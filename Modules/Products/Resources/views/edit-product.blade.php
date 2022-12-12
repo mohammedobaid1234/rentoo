@@ -106,7 +106,7 @@
         //  GLOBALS.lists.categories($('#product-edit [data-options_source="categories"]'));
          GLOBALS.lists.vendors($('#product-edit [data-options_source="vendors"]'));
         
-         $.get($("meta[name='BASE_URL']").attr("content") + "/products/product-info/" + $id, function(response, status){
+         $.get($("meta[name='BASE_URL']").attr("content") + "/Products/product-info/" + $id, function(response, status){
             if($('#product-edit [name="vendor_id"]').find('option[value="' + response.vendor_id + '"]').length){
                    $('#product-edit [name="vendor_id"]').find('option[value="' + response.vendor_id + '"]').prop('selected', true).trigger('change');
            }
@@ -125,8 +125,8 @@
     })
 </script>
 <script>
-    imageRemoveAndAppeared('products', $id);
-    myDropzone('products')
+    imageRemoveAndAppeared('Products', $id);
+    myDropzone('Products')
     $('.js-example-basic-single').select2();
   </script>
 <script>
@@ -162,7 +162,7 @@
         $this.find("button:submit").html('<span class="fas fa-spinner" data-fa-transform="shrink-3"></span>');
 
         $.ajax({
-        url: $("meta[name='BASE_URL']").attr("content") + '/products/' + $id,
+        url: $("meta[name='BASE_URL']").attr("content") + '/Products/' + $id,
         type: 'PUT',
         data:data
         })
@@ -190,7 +190,7 @@
         getAttributes(this.value);
     });
      function getAttributes(vendor_id){
-        $.get($("meta[name='BASE_URL']").attr("content") + "/products/attributes/categories/" + vendor_id , function(response){
+        $.get($("meta[name='BASE_URL']").attr("content") + "/Products/attributes/categories/" + vendor_id , function(response){
 
             $('#product-attributes .attributes').html("");
 

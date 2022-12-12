@@ -43,7 +43,7 @@ class CreatePmProductAttributesTable extends Migration
             $table->timestamps();
             $table->softDeletes();
 
-            $table->foreign('product_id')->references('id')->on('pm_products');
+            $table->foreign('product_id')->references('id')->on('pm_Products');
             $table->foreign('type_id')->references('id')->on('pm_product_attribute_types');
             $table->foreign('created_by')->references('id')->on('um_users');
         });

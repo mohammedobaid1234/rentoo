@@ -14,18 +14,18 @@ class CategoryAttributeTypesController extends Controller{
     private $model = \Modules\Products\Entities\CategoryAttributeType::class;
     
     public function manage(){
-        $this->can('products_module_category_attribute_types_manage', 'view');
+        $this->can('Products_module_category_attribute_types_manage', 'view');
         $data['activePage'] = ['category_attribute_types' => 'category_attribute_types'];
         $data['breadcrumb'] = [
             ['title' => "مواصفات انواع الموردين "],
             ['title' => $this->title]
         ];
 
-        return view("products::category_attribute_types", $data);
+        return view("Products::category_attribute_types", $data);
     }
 
     public function datatable(Request $request){
-        $this->can('products_module_category_attribute_types_manage');
+        $this->can('Products_module_category_attribute_types_manage');
 
         $eloquent = $this->model::with(['category','attribute.list']);
         $filters = [];

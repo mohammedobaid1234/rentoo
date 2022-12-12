@@ -13,7 +13,7 @@ class UserRegistration extends Model{
         return $this->belongsTo(\Modules\Users\Entities\User::class);
     }
     public function product(){
-        return $this->belongsTo(\Modules\PRoducts\Entities\Product::class);
+        return $this->belongsTo(\Modules\Products\Entities\Product::class);
     }
     public function time(){
         return $this->belongsTo(\Modules\Vendors\Entities\TimeLabel::class, 'time_id');

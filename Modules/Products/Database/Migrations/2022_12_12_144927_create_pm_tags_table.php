@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateVnOffersProductsTable extends Migration
+class CreatePmTagsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,11 @@ class CreateVnOffersProductsTable extends Migration
      */
     public function up()
     {
-        Schema::create('vn_offers_Products', function (Blueprint $table) {
+        Schema::create('pm_tags', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('offer_id')->nullable();
-            $table->unsignedBigInteger('product_id')->nullable();
-            $table->foreign('offer_id')->references('id')->on('vn_offers');
-            $table->foreign('product_id')->references('id')->on('pm_Products');
+            $table->json('name')->nullable();
+            $table->unsignedBigInteger('category_id')->nullable();
+            $table->foreign('category_id')->references('id')->on('pm_categories');
             $table->softDeletes();
             $table->timestamps();
         });
@@ -31,6 +30,6 @@ class CreateVnOffersProductsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('vn_offers_Products');
+        Schema::dropIfExists('pm_tags');
     }
 }

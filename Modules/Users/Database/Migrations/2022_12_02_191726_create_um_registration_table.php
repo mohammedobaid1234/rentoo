@@ -19,7 +19,7 @@ class CreateUmRegistrationTable extends Migration
             $table->unsignedBigInteger('user_id')->nullable();
             $table->unsignedBigInteger('time_id')->nullable();
             $table->float('price')->nullable();
-            $table->foreign('product_id')->references('id')->on('pm_products');
+            $table->foreign('product_id')->references('id')->on('pm_Products');
             $table->foreign('user_id')->references('id')->on('um_users');
             $table->foreign('time_id')->references('id')->on('vn_time_label');
             $table->softDeletes();

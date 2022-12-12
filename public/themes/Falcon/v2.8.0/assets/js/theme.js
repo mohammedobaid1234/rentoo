@@ -1682,7 +1682,7 @@ utils.$document.ready(function () {
     ECHART_BAR_WEEKLY_SALES: '.echart-bar-weekly-sales',
     ECHART_LINE_TOTAL_SALES: '.echart-line-total-sales',
     SELECT_MONTH: '.select-month',
-    ECHART_BAR_TOP_PRODUCTS: '.echart-bar-top-products',
+    ECHART_BAR_TOP_Products: '.echart-bar-top-Products',
     ECHART_WORLD_MAP: '.echart-world-map',
     ECHART_DOUGHNUT: '.echart-doughnut'
   }; //
@@ -2091,11 +2091,11 @@ utils.$document.ready(function () {
       });
     });
   } //
-  // ─── BAR CHART TOP PRODUCTS ──────────────────────────────────────────────────────────────────
+  // ─── BAR CHART TOP Products ──────────────────────────────────────────────────────────────────
   //
 
 
-  var $echartBarTopProducts = document.querySelector(Selector.ECHART_BAR_TOP_PRODUCTS);
+  var $echartBarTopProducts = document.querySelector(Selector.ECHART_BAR_TOP_Products);
 
   if ($echartBarTopProducts) {
     var _data = [['product', '2019', '2018'], ['Boots4', 43, 85], ['Reign Pro', 83, 73], ['Slick', 86, 62], ['Falcon', 72, 53], ['Sparrow', 80, 50], ['Hideway', 50, 70], ['Freya', 80, 90] // ['Raven Pro', 60, 70],
@@ -5505,7 +5505,7 @@ var events = [{
 }, {
   title: "ICT Expo " + currentYear + " - Product Release",
   start: currentYear + "-" + currentMonth + "-16 10:00:00",
-  description: "ICT Expo " + currentYear + " is the largest private-sector exposition aimed at showcasing IT and ITES products and services in Switzerland.",
+  description: "ICT Expo " + currentYear + " is the largest private-sector exposition aimed at showcasing IT and ITES Products and services in Switzerland.",
   end: currentYear + "-" + currentMonth + "-18 16:00:00",
   className: 'bg-soft-warning'
 }, {

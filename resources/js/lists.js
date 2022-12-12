@@ -69,7 +69,7 @@ let GLOBALS = {
                 resource: $("meta[name='BASE_URL']").attr("content") + "/categories",
                 formatters: {
                     option: {
-                        title: 'name'
+                        title: 'name_ar'
                     }
                 }
             });

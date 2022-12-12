@@ -7,13 +7,13 @@
         <title>Module Products</title>
 
        {{-- Laravel Mix - CSS File --}}
-       {{-- <link rel="stylesheet" href="{{ mix('css/products.css') }}"> --}}
+       {{-- <link rel="stylesheet" href="{{ mix('css/Products.css') }}"> --}}
 
     </head>
     <body>
         @yield('content')
 
         {{-- Laravel Mix - JS File --}}
-        {{-- <script src="{{ mix('js/products.js') }}"></script> --}}
+        {{-- <script src="{{ mix('js/Products.js') }}"></script> --}}
     </body>
 </html>
