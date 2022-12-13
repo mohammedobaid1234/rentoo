@@ -11,9 +11,10 @@ use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
+use Laravel\Passport\HasApiTokens;
 
 class User extends Authenticatable implements  HasMedia{
-    use  HasRoles, Notifiable;
+    use  HasRoles, Notifiable,HasApiTokens;
     use SoftDeletes;
     use InteractsWithMedia;
     protected $table = 'um_users';

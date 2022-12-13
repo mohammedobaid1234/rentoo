@@ -3,5 +3,6 @@
     "Users": true,
     "Admin": true,
     "Vendors": true,
-    "Products": true
+    "Products": true,
+    "API": true
 }
