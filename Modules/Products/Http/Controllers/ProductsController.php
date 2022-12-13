@@ -23,7 +23,7 @@ class ProductsController extends Controller{
             ['title' => $this->title]
         ];
 
-        return view("Products::Products", $data);
+        return view("Products::product", $data);
     }
 
     public function datatable(Request $request){
