@@ -14,7 +14,7 @@ class Tag extends Model{
     protected $casts = ['created_at' => 'datetime:Y-m-d H:i:s a'];
     public $translatable = ['name'];
 
-    public function category(){
-        return $this->belongsTo(\Modules\Products\Entities\Category::class);
+    public function vendor_type(){
+        return $this->belongsTo(\Modules\Vendors\Entities\TypeOFVendor::class, 'vendor_type_id');
     }
 }

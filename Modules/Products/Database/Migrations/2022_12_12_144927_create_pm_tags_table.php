@@ -16,8 +16,8 @@ class CreatePmTagsTable extends Migration
         Schema::create('pm_tags', function (Blueprint $table) {
             $table->id();
             $table->json('name')->nullable();
-            $table->unsignedBigInteger('category_id')->nullable();
-            $table->foreign('category_id')->references('id')->on('pm_categories');
+            $table->unsignedBigInteger('vendor_type_id')->nullable();
+            $table->foreign('vendor_type_id')->references('id')->on('vn_types_of_vendors');
             $table->softDeletes();
             $table->timestamps();
         });

@@ -52,12 +52,17 @@ class ProductsController extends Controller{
      
     }
     public function showProduct($id){
-        $item = \Modules\Products\Entities\Product::with('attributes')->whereId($id)->first();
+        $item = \Modules\Products\Entities\Product::with(['attributes', 'tags'])->whereId($id)->first();
         return response()->json($item);
     }
     public function getAttribute($id){
         $vendor = \Modules\Vendors\Entities\Vendor::whereId($id)->first();
         return response()->json(CategoryAttributeType::with(['type', 'type.list'])->where('category_id', $vendor->type_id)->get());
+
+    }
+    public function getTags($id){
+        $vendor = \Modules\Vendors\Entities\Vendor::whereId($id)->first();
+        return response()->json(\Modules\Products\Entities\Tag::with(['vendor_type'])->where('vendor_type_id', $vendor->type_id)->get());
 
     }
 
@@ -84,6 +89,7 @@ class ProductsController extends Controller{
             $product->price = $request->price;
             $product->save();
             self::syncProductAttributes($product, $request->get('attributes'));
+            self::syncProductTags($product, explode(',',$request->tags));
 
             \DB::commit();
         } catch (\Exception $e) {
@@ -117,6 +123,7 @@ class ProductsController extends Controller{
             $product->price = $request->price;
             $product->save();
             self::syncProductAttributes($product, $request->get('attributes'));
+            self::syncProductTags($product, explode(',',$request->tags));
 
             \DB::commit();
         } catch (\Exception $e) {
@@ -170,6 +177,36 @@ class ProductsController extends Controller{
             foreach($productAttributesRemained as $productAttributeId => $remained){
                 if(!$remained){
                     \Modules\Products\Entities\ProductAttribute::whereId($productAttributeId)->delete();
+                }
+            }
+        }
+    }
+    private static function syncProductTags($product, $tags){
+        $ProductTag = \Modules\Products\Entities\ProductTag::where('product_id', $product->id)->get();
+        $ProductTagRemained = [];
+        if(count($ProductTag) !== 0){
+            foreach($ProductTag as $ProductTag){
+                $ProductTagRemained[$ProductTag->id] = false;
+            }
+        }
+        
+        foreach($tags as $tag){
+            $ProductTag = \Modules\Products\Entities\ProductTag::where('product_id', $product->id)->where('tag_id', $tag)->first();
+
+            if(!$ProductTag){
+                $ProductTag = new \Modules\Products\Entities\ProductTag;
+                $ProductTag->product_id = $product->id;
+                $ProductTag->tag_id = $tag;
+            }
+
+            $ProductTag->save();
+
+            count($ProductTagRemained) !== 0 ? $ProductTagRemained[$ProductTag->id] = true : '';
+        }
+        if(count($ProductTagRemained) !== 0 ){
+            foreach($ProductTagRemained as $ProductTagId => $remained){
+                if(!$remained){
+                    \Modules\Products\Entities\ProductTag::whereId($ProductTagId)->delete();
                 }
             }
         }

@@ -77,7 +77,7 @@
 
                     @if(\Auth::user()->can('Products_module_Products_manage'))
                         <li class="nav-item @if(isset($activePage['Products'])) active @endif">
-                            <a class="nav-link" href="{{ url('/') }}/Products/manage">
+                            <a class="nav-link" href="{{ url('/') }}/products/manage">
                                 <div class="d-flex align-items-center">
                                     <span class="nav-link-icon"><span class="fas fa-th-list"></span></span>
                                     <span class="nav-link-text">إدارة المنتجات</span>

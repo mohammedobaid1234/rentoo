@@ -79,6 +79,15 @@
                     </div>
                 </div>
             </div>
+            <div class="card mb-3">
+                <h5 class="card-header">بيانات التاجات</h5>
+                <div class="card-body bg-light">
+                    <div class="card-body pt-0 pl-0 pr-0" id="product-tags">
+                        <div class="tags">
+                        </div>
+                    </div>
+                </div>
+            </div>
             {{-- <div class="card mb-3">
                 <h5 class="card-header"></h5>
                 <div class="card-body bg-light">
@@ -104,6 +113,8 @@
 @endsection
 
 @section('javascript')
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <script>
     $(function(){
         //  GLOBALS.lists.categories($('#product-edit [data-options_source="categories"]'));
@@ -112,8 +123,9 @@
 </script>
 <script>$id = ''</script>
 <script>
-    myDropzone('Products')
+    myDropzone('products')
     $('.js-example-basic-single').select2();
+    $('.js-example-basic-multiple').select2();
   </script>
 <script>
     $("input#btn-submit").on('click', function(event){
@@ -142,12 +154,13 @@
             description_en: $.trim($this.find("textarea[name='description_en']").val()),
             vendor_id: $.trim($this.find("select[name='vendor_id']").val()),
             price: $.trim($this.find("input[name='price']").val()),
+            tags: $.trim($this.find("select[name='tags[]']").val()),
             attributes: attributes,
         }
         $this.find("button:submit").attr('disabled', true);
         $this.find("button:submit").html('<span class="fas fa-spinner" data-fa-transform="shrink-3"></span>');
 
-        $.post($("meta[name='BASE_URL']").attr("content") + "/Products", data,
+        $.post($("meta[name='BASE_URL']").attr("content") + "/products", data,
         function (response, status) {
             $id = response.data.id;
             $myDropzone.userId = $id
@@ -173,9 +186,10 @@
             return;
         }
         getAttributes(this.value);
+        getTags(this.value);
     });
      function getAttributes(category_id){
-        $.get($("meta[name='BASE_URL']").attr("content") + "/Products/attributes/categories/" + category_id , function(response){
+        $.get($("meta[name='BASE_URL']").attr("content") + "/products/attributes/categories/" + category_id , function(response){
 
             $('#product-attributes .attributes').html("");
 
@@ -222,6 +236,30 @@
             //         return $(this).text() == attribute.value;
             //     }).prop("selected", true);
             // });
+        });
+    }
+    function getTags(category_id){
+        $.get($("meta[name='BASE_URL']").attr("content") + "/products/tags/categories/" + category_id , function(response){
+
+            $('#product-tags .tags').html("");
+
+            var tags = "";
+            tags += '<div class="row">';
+            tags += '<div class="col">';
+            tags += '     <div class="form-group">';
+            tags += '         <label for="tags">التاجات</label>';
+            tags += '<select class="form-control js-example-basic-multiple" multiple="multiple"  id="tags_" name="tags[]">';
+                tags += "<option value=''></option>";+
+            $(response).each(function(){
+                tags += "<option value='" + this.id + "'>" + this.name.ar + "</option>";
+            });
+            tags += '</select>';
+            tags += '     </div>';
+            tags += '</div>';
+
+            $('#product-tags .tags').html(tags);
+            $('.js-example-basic-multiple').select2();
+    
         });
     }
 

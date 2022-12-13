@@ -73,6 +73,15 @@
                     </div>
                 </div>
             </div>
+            <div class="card mb-3">
+                <h5 class="card-header">بيانات التاجات</h5>
+                <div class="card-body bg-light">
+                    <div class="card-body pt-0 pl-0 pr-0" id="product-tags">
+                        <div class="tags">
+                        </div>
+                    </div>
+                </div>
+            </div>
             {{-- <div class="card mb-3">
                 <h5 class="card-header"></h5>
                 <div class="card-body bg-light">
@@ -106,7 +115,7 @@
         //  GLOBALS.lists.categories($('#product-edit [data-options_source="categories"]'));
          GLOBALS.lists.vendors($('#product-edit [data-options_source="vendors"]'));
         
-         $.get($("meta[name='BASE_URL']").attr("content") + "/Products/product-info/" + $id, function(response, status){
+         $.get($("meta[name='BASE_URL']").attr("content") + "/products/product-info/" + $id, function(response, status){
             if($('#product-edit [name="vendor_id"]').find('option[value="' + response.vendor_id + '"]').length){
                    $('#product-edit [name="vendor_id"]').find('option[value="' + response.vendor_id + '"]').prop('selected', true).trigger('change');
            }
@@ -117,16 +126,17 @@
             $('#product-edit [name="description_ar"]').val(response.description.ar);
             $('#product-edit [name="description_en"]').val(response.description.en);
             $('#product-attributes .attributes').attr('data-attributes', JSON.stringify(response.attributes));
+            $('#product-tags .tags').attr('data-tags', JSON.stringify(response.tags));
 
-            });
+        });
         // else{
         //     $('#product-edit [name="category_id"]').append($("<option selected='selected'></option>").val($category_id).text(response.category.name));
         // }
     })
 </script>
 <script>
-    imageRemoveAndAppeared('Products', $id);
-    myDropzone('Products')
+    imageRemoveAndAppeared('products', $id);
+    myDropzone('products')
     $('.js-example-basic-single').select2();
   </script>
 <script>
@@ -156,13 +166,14 @@
             description_en: $.trim($this.find("textarea[name='description_en']").val()),
             vendor_id: $.trim($this.find("select[name='vendor_id']").val()),
             price: $.trim($this.find("input[name='price']").val()),
+            tags: $.trim($this.find("select[name='tags[]']").val()),
             attributes: attributes,
         }
         $this.find("button:submit").attr('disabled', true);
         $this.find("button:submit").html('<span class="fas fa-spinner" data-fa-transform="shrink-3"></span>');
 
         $.ajax({
-        url: $("meta[name='BASE_URL']").attr("content") + '/Products/' + $id,
+        url: $("meta[name='BASE_URL']").attr("content") + '/products/' + $id,
         type: 'PUT',
         data:data
         })
@@ -188,9 +199,10 @@
             return;
         }
         getAttributes(this.value);
+        getTags(this.value);
     });
      function getAttributes(vendor_id){
-        $.get($("meta[name='BASE_URL']").attr("content") + "/Products/attributes/categories/" + vendor_id , function(response){
+        $.get($("meta[name='BASE_URL']").attr("content") + "/products/attributes/categories/" + vendor_id , function(response){
 
             $('#product-attributes .attributes').html("");
 
@@ -230,7 +242,6 @@
             $('#product-attributes .attributes').html(attributes);
 
             var data_attributes =  JSON.parse($('#product-attributes .attributes').attr('data-attributes'));
-            console.log(data_attributes);
             $(data_attributes).each(function(key, attribute){
                 $('#product-attributes .attributes').find('input[name="' +  attribute.type_id + '"]').val(attribute.value);
                 $('#product-attributes .attributes').find('select[name="' +  attribute.type_id + '"] option').filter(function() {
@@ -240,6 +251,46 @@
         });
     }
 
+    function getTags(category_id){
+        $.get($("meta[name='BASE_URL']").attr("content") + "/products/tags/categories/" + category_id , function(response){
+
+            $('#product-tags .tags').html("");
+
+            var tags = "";
+            tags += '<div class="row">';
+            tags += '<div class="col">';
+            tags += '     <div class="form-group">';
+            tags += '         <label for="tags">التاجات</label>';
+            tags += '<select class="form-control js-example-basic-multiple" multiple="multiple"  id="tags_" name="tags[]">';
+                tags += "<option value=''></option>";+
+            $(response).each(function(){
+                tags += "<option value='" + this.id + "' >" + this.name.ar + "</option>";
+            });
+            tags += '</select>';
+            tags += '     </div>';
+            tags += '</div>';
+            $('#product-tags .tags').html(tags);
+            $('.js-example-basic-multiple').select2();
+
+            var data_tags =  JSON.parse($('#product-tags .tags').attr('data-tags'));
+            $tags = [];
+            data_tags.forEach(element => {
+                $tags.push(element.tag_id)
+            });
+            $.each($tags, function(i,e){
+                if( $("select[name='tags[]'] option[value='" + e + "']")){
+                    $option = $("select[name='tags[]'] option[value='" + e + "']");
+                    var $newOption = $("<option selected='selected'></option>").val(e).text($option.text())
+                    $("select[name='tags[]']").append($newOption).trigger('change');
+                    $("select[name='tags[]'] option[value='" + e + "']").trigger("change");
+                    $option.remove();
+
+                }
+            });
+
+            
+        });
+    }
 </script>
 @endsection 
 
