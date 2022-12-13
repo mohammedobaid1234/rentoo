@@ -48,7 +48,7 @@ class UserSeeder extends Seeder{
             $user->assignRole($row['roles']);
         }
 
-         $user = \Modules\Users\Entities\User::first();
-         $user->assignRole('super_admin');
+        //  $user = \Modules\Users\Entities\User::first();
+        //  $user->assignRole('super_admin');
     }
 }
