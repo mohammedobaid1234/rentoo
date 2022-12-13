@@ -20,7 +20,7 @@ class Product extends Model implements HasMedia{
         'product_code','name', 'description','category_id', 'vendor_id', 'currency_id',
         'price','quantity', 'status_id', 'created_by', 'product_code'
     ];
-    protected $table = 'pm_Products';
+    protected $table = 'pm_products';
     public $translatable = ['name', 'description'];
     protected $casts = ['created_at' => 'datetime:Y-m-d H:i:s a'];
     protected $appends = ['image_url'];
