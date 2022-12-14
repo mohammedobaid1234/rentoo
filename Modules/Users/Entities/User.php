@@ -64,7 +64,9 @@ class User extends Authenticatable implements  HasMedia{
             }
         });
     }
-
+    public function routeNotificationForTwilio(){
+        return $this->mobile_no;;
+    }
 
     public function scopeWhereEmailLike($query, $email){
         return $query->where('email', 'like', ('%' . trim($email) . '%'));

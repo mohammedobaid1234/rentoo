@@ -18,7 +18,7 @@ class UserController extends Controller{
             'location' => 'required'
         ]);
         if ($validator->fails()) {
-            return response()->json(['status' => false, 'code' => 200,'message' => implode("\n", $validator->messages()->all())]);
+            return response()->json([ 'message' => implode("\n", $validator->messages()->all())],403);
         }
         \DB::beginTransaction();
         try {
@@ -34,16 +34,16 @@ class UserController extends Controller{
                 $code = new \Modules\Users\Entities\VerificationCode();
                 $code->email = $user->email;
                 $code->mobile_no = $user->mobile_no;
-                $code->code = $verificationCode;
+                $code->code = 1111;
                 $code->save();
             }
-
+            // $user->notify(new \Modules\Users\Notifications\SendVerificationCode($code->code));
             \DB::commit();
         } catch (\Exception $e) {
             \DB::rollback();
             return response()->json(['message' => $e->getMessage()], 403);
         }
-        return response()->json(['status' => true, 'code' => 200, 'message' => 'please confirm mobile number', 'user' => $user,]);
+        return response()->json(['message' =>'please confirm mobile number', 'user' => $user,]);
           
     }
 
@@ -56,8 +56,8 @@ class UserController extends Controller{
             'password' => 'required',
         ]);
         if ($validator->fails()) {
-            return response()->json(['status' => false, 'code' => 200,
-                'message' => implode("\n", $validator->messages()->all())]);
+            return response()->json([
+                'message' => implode("\n", $validator->messages()->all())],403);
         }
 
         if (filter_var($request->email, FILTER_VALIDATE_EMAIL)) {
@@ -75,11 +75,11 @@ class UserController extends Controller{
                 $code->code = 1111;
                 $code->save();
                 $message = 'Must Verified Mobile Number';
-                return response()->json(['status' => true, 'code' => 210, 'message' => $message]);
+                return response()->json([ 'code' => 210, 'message' => $message]);
             }
             else {
                 $user['access_token'] = $user->createToken('mobile_no')->accessToken;
-                return response()->json(['status' => true, 'code' => 200, 'user' => $user]);
+                return response()->json([  'user' => $user]);
             }
         } else {
 
@@ -87,12 +87,12 @@ class UserController extends Controller{
             if ($EmailData) {
                 $message = __('wrong password');
 
-                return response()->json(['status' => false, 'code' => 200, 'message' => $message]);
+                return response()->json([ 'message' => $message],403);
 
             } else {
                 $message = __('wrong email');
 
-                return response()->json(['status' => false, 'code' => 200, 'message' => $message]);
+                return response()->json([ 'message' => $message],403);
             }
         }
     }
@@ -102,19 +102,19 @@ class UserController extends Controller{
     //         'mobile_no' => 'required',
     //     ]);
     //     if ($validator->fails()) {
-    //         return response()->json(['status' => false, 'code' => 200,
-    //             'message' => implode("\n", $validator->messages()->all())]);
+    //         return response()->json([
+    //             'me,403ssage' => implode("\n", $validator->messages()->all())]);
     //     }
     //     $code = convertAr2En($request->code);
     //     $user = \Modules\Users\Entities\User::where('mobile_no', $request->mobile_no)->first();
     //     if(!$user){
-    //         return response()->json(['status' => false, 'code' => 200, 'message' => 'Not Exsist']);
+    //         return response()->json([ 'message' => 'Not Exsi,403st']);
     //     }
     //     $validationCode = new \Modules\Users\Entities\VerificationCode;
     //     $validationCode->mobile_no = $request->mobile_no;
     //     $validationCode->code = $request->code;
     //     $validationCode->save();
-    //     return response()->json(['status' => true, 'code' => 200, 'message' => 'ok']);
+    //     return response()->json([  'message' => 'ok']);
        
     // }
     public function verifyCode(Request $request){
@@ -123,8 +123,8 @@ class UserController extends Controller{
             'code' => 'required|min:4',
         ]);
         if ($validator->fails()) {
-            return response()->json(['status' => false, 'code' => 200,
-                'message' => implode("\n", $validator->messages()->all())]);
+            return response()->json([
+                'message' => implode("\n", $validator->messages()->all())],403);
         } 
 
         $code = convertAr2En($request->code);
@@ -147,16 +147,16 @@ class UserController extends Controller{
                     }
                     $user['access_token'] = $user->createToken('mobile_no')->accessToken;
                 $massege = __('ok');
-                return response()->json(['status' => true, 'code' => 200, 'message' => $massege, 'user' => $user]);
+                return response()->json([  'message' => $massege, 'user' => $user]);
                 }
             } else {
                 $massege = __('incorrect code');
-                return response()->json(['status' => false, 'code' => 200, 'message' => $massege]);
+                return response()->json([ 'message' => $massege],403);
             }
 
         } else {
             $massege = __('incorrect code');
-            return response()->json(['status' => false, 'code' => 200, 'message' => $massege]);
+            return response()->json([ 'message' => $massege],403);
 
         }
     }
@@ -166,19 +166,19 @@ class UserController extends Controller{
             'mobile_no' => 'required',
         ]);
         if ($validator->fails()) {
-            return response()->json(['status' => false, 'code' => 200,
-                'message' => implode("\n", $validator->messages()->all())]);
+            return response()->json([
+                'message' => implode("\n", $validator->messages()->all())],403);
         }
         $user = \Modules\Users\Entities\User::where('mobile_no', $request->mobile_no)->first();
         if (!$user) {
             $message = 'The mobile number not found';
-            return response()->json(['status' => false, 'code' => 200, 'message' => $message]);
+            return response()->json([ 'message' => $message],403);
         }
         // $token = $this->broker()->createToken($user);
         // $url = url('/password/reset/' . $token);
         // $user->notify(new ResetPassword($token));
         $message = __('reset Password');
-        return response()->json(['status' => true, 'code' => 200, 'message' => $message]);
+        return response()->json([  'message' => $message]);
     }
 
     public function changePassword(Request $request){
@@ -189,37 +189,37 @@ class UserController extends Controller{
         ];
         $validator = \Validator::make($request->all(), $rules);
         if ($validator->fails()) {
-            return response()->json(['status' => false, 'code' => 200,
-                'message' => implode("\n", $validator->messages()->all())]);
+            return response()->json([
+                'message' => implode("\n", $validator->messages()->all())],403);
         }
         $user = auth('api')->user();
-        if (!Hash::check($request->old_password, $user->password)) {
+        if (!\Hash::check($request->old_password, $user->password)) {
             $message = __('old_password'); //wrong old
-            return response()->json(['status' => false, 'code' => 200, 'message' => $message,
-                'validator' => $validator]);
+            return response()->json([ 'message' => $message,
+                'validator' => $validator],403);
         }
 
-        $user->password = Hash::make($request->password);
+        $user->password = \Hash::make($request->password);
 
         if ($user->save()) {
             $user->refresh();
             $message = __('ok');
-            return response()->json(['status' => true, 'code' => 200, 'message' => $message]);
+            return response()->json([  'message' => $message]);
         }
         $message = __('whoops');
-        return response()->json(['status' => false, 'code' => 200, 'message' => $message]);
+        return response()->json([ 'message' => $message],403);
     }
 
     public function logout(Request $request){
         $user_id = auth('api')->id();
-        Token::where('fcm_token', $request->fcmToken)->delete();
+        // Token::where('fcm_token', $request->fcmToken)->delete();
         if (auth('api')->user()->token()->revoke()) {
             $message = 'logged out successfully';
-            return response()->json(['status' => true, 'code' => 200,
+            return response()->json([ 
                 'message' => $message]);
         } else {
             $message = 'logged out successfully';
-            return response()->json(['status' => true, 'code' => 202,
+            return response()->json([ 'code' => 202,
                 'message' => $message]);
         }
     }
