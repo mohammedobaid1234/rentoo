@@ -15,6 +15,7 @@ class UserController extends Controller{
             'confirm_password' => 'required|min:6|same:password',
             'first_name' => 'required|min:3',
             'mobile_no' => 'required|min:8|max:13',
+            'location' => 'required'
         ]);
         if ($validator->fails()) {
             return response()->json(['status' => false, 'code' => 200,'message' => implode("\n", $validator->messages()->all())]);
@@ -25,6 +26,7 @@ class UserController extends Controller{
             $user->first_name = $request->first_name;
             $user->email = $request->email;
             $user->mobile_no = $request->mobile_no;
+            $user->location = $request->location;
             $user->password = \Hash::make($request->password);
             $done = $user->save();
             if($done){
