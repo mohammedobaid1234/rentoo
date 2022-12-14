@@ -12,6 +12,7 @@
         "laravel/passport": "^10.4",
         "laravel/sanctum": "^2.11",
         "laravel/tinker": "^2.5",
+        "nexmo/client": "^2.4",
         "nwidart/laravel-modules": "^8.3",
         "spatie/laravel-medialibrary": "^9.12",
         "spatie/laravel-permission": "^5.5",

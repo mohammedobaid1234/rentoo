@@ -96,27 +96,27 @@ class UserController extends Controller{
             }
         }
     }
-    public function sendCodeToApi(Request $request){
-        $validator = \Validator::make($request->all(), [
-            'code' => 'required|min:4',
-            'mobile_no' => 'required',
-        ]);
-        if ($validator->fails()) {
-            return response()->json(['status' => false, 'code' => 200,
-                'message' => implode("\n", $validator->messages()->all())]);
-        }
-        $code = convertAr2En($request->code);
-        $user = \Modules\Users\Entities\User::where('mobile_no', $request->mobile_no)->first();
-        if(!$user){
-            return response()->json(['status' => false, 'code' => 200, 'message' => 'Not Exsist']);
-        }
-        $validationCode = new \Modules\Users\Entities\VerificationCode;
-        $validationCode->mobile_no = $request->mobile_no;
-        $validationCode->code = $request->code;
-        $validationCode->save();
-        return response()->json(['status' => true, 'code' => 200, 'message' => 'ok']);
+    // public function sendCodeToApi(Request $request){
+    //     $validator = \Validator::make($request->all(), [
+    //         'code' => 'required|min:4',
+    //         'mobile_no' => 'required',
+    //     ]);
+    //     if ($validator->fails()) {
+    //         return response()->json(['status' => false, 'code' => 200,
+    //             'message' => implode("\n", $validator->messages()->all())]);
+    //     }
+    //     $code = convertAr2En($request->code);
+    //     $user = \Modules\Users\Entities\User::where('mobile_no', $request->mobile_no)->first();
+    //     if(!$user){
+    //         return response()->json(['status' => false, 'code' => 200, 'message' => 'Not Exsist']);
+    //     }
+    //     $validationCode = new \Modules\Users\Entities\VerificationCode;
+    //     $validationCode->mobile_no = $request->mobile_no;
+    //     $validationCode->code = $request->code;
+    //     $validationCode->save();
+    //     return response()->json(['status' => true, 'code' => 200, 'message' => 'ok']);
        
-    }
+    // }
     public function verifyCode(Request $request){
         $validator = \Validator::make($request->all(), [
             'mobile_no' => 'required',
