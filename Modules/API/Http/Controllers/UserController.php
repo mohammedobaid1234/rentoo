@@ -14,7 +14,7 @@ class UserController extends Controller{
             'password' => 'required|min:6',
             'confirm_password' => 'required|min:6|same:password',
             'first_name' => 'required|min:3',
-            'mobile_no' => 'required|min:8|max:13',
+            'mobile_no' => 'required|min:8|max:13|unique:um_users',
             'location' => 'required'
         ]);
         if ($validator->fails()) {
@@ -75,7 +75,7 @@ class UserController extends Controller{
                 $code->code = 1111;
                 $code->save();
                 $message = 'Must Verified Mobile Number';
-                return response()->json([ 'code' => 210, 'message' => $message]);
+                return response()->json([  'message' => $message]);
             }
             else {
                 $user['access_token'] = $user->createToken('mobile_no')->accessToken;
@@ -219,8 +219,7 @@ class UserController extends Controller{
                 'message' => $message]);
         } else {
             $message = 'logged out successfully';
-            return response()->json([ 'code' => 202,
-                'message' => $message]);
+            return response()->json([ 'message' => $message]);
         }
     }
 }
