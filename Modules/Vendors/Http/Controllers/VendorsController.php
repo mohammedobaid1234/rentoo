@@ -152,4 +152,8 @@ class VendorsController extends Controller{
             ]
         ];
     }
+
+    public function map(){
+        return view('vendors::vendors_locations');
+    }
 }

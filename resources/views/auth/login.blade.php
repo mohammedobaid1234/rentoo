@@ -44,7 +44,7 @@
                     <a class="d-flex flex-center mb-4" href="{{ url('/') }}">
                         <img class="mr-2" src="{{ asset('/public/themes/Falcon/v2.8.0/assets/img/favicons/logo.png') }}" alt="Qasetli" width="200" />
                     </a>
-                    <span class="d-flex flex-center mb-4 text-stc font-weight-extra-bold fs-4 d-inline-block">نظام إدارة الشركات</span>
+                    <span class="d-flex flex-center mb-4 text-stc font-weight-extra-bold fs-4 d-inline-block">نظام إدارة تطبيق Rentoo</span>
                     <div class="card">
                         <div class="card-body p-4 p-sm-4">
                             <div class="row text-left justify-content-between align-items-center mb-2">

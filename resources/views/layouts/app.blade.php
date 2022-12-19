@@ -207,6 +207,11 @@
         <!-- ===============================================-->
         <!--    JavaScripts-->
         <!-- ===============================================-->
+        {{-- AIzaSyDkXCEXXb4vqxiCWS33W3dJzrx-PfJ35C8  dabach--}}
+        {{-- AIzaSyDoa0Z040IhPMaMNgmtoHTxb-bzr8GIECM  bahaa--}} 
+        {{-- AIzaSyAojCdQjz5W8nFiXQvxg9gmoFGCs_PK35Q acklouk --}}
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAojCdQjz5W8nFiXQvxg9gmoFGCs_PK35Q"></script>
+
         <script src="{{ asset('/public/themes/Falcon/v2.8.0/assets/js/jquery.min.js') }}"></script>
         <script src="{{ asset('/public/themes/Falcon/v2.8.0/assets/js/popper.min.js') }}"></script>
         <script src="{{ asset('/public/themes/Falcon/v2.8.0/assets/js/bootstrap.min.js') }}"></script>

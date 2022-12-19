@@ -23,3 +23,8 @@ Route::post('/verifyCode', 'UserController@verifyCode');
 Route::post('/sendCodeToApi', 'UserController@sendCodeToApi');
 Route::post('/changePassword', 'UserController@changePassword');
 Route::post('/logout', 'UserController@logout');
+
+
+Route::get('/getTags', 'AppController@getTags');
+Route::post('/addTagsToUser', 'AppController@addTagsToUser');
+Route::get('/homePage', 'AppController@homePage');
