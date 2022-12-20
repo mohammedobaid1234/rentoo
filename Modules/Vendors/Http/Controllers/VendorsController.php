@@ -167,6 +167,6 @@ class VendorsController extends Controller{
     public function getVendorLocation($id){
         $vendor = \Modules\Vendors\Entities\Vendor::whereId($id)->first();
         return $vendor; 
-        return $vendor->location;
+        // return $vendor->location;
     }
 }

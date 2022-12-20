@@ -26,17 +26,17 @@
 <script>let vendor_icon ='/public/themes/Falcon/v2.8.0/googleIcon/icons8-shop-32.png'</script>
 <script>let $vendorLocations = @json($vendorLocations)</script>
 <script>
-  console.log($vendorLocations);
+  // console.log($vendorLocations);
    let markers = [];
     initMap();
-    console.log(vendor_icon);
+    // console.log(vendor_icon);
     function initMap() {
       const map = new google.maps.Map(document.getElementById("map"), {
         zoom: 12,
         center: { lat: 31.469868, lng: 34.388081 },
       });
       $vendorLocations.forEach(element => {
-        console.log(element);
+        // console.log(element);
         var marker = new google.maps.Marker({
             position:JSON.parse(element),
             map: map,
