@@ -76,6 +76,7 @@ class VendorsController extends Controller{
             $vendor->closing_time = $request->closing_time;
             $vendor->user_id = $user->id;
             $vendor->type_id = $request->type_id;
+            $vendor->location = $request->location;
             $vendor->created_by = \Auth::user()->id;
             $vendor->save();
 
@@ -102,13 +103,11 @@ class VendorsController extends Controller{
         ]);
         \DB::beginTransaction();
         try {
-
-            
-
             $vendor =  \Modules\Vendors\Entities\Vendor::whereId($id)->first();
             $vendor->company_name = $request->company_name;
             $vendor->starting_time = $request->starting_time;
             $vendor->closing_time = $request->closing_time;
+            $vendor->location = $request->location;
             $vendor->type_id = $request->type_id;
             $vendor->created_by = \Auth::user()->id;
             $vendor->save();
@@ -154,6 +153,20 @@ class VendorsController extends Controller{
     }
 
     public function map(){
-        return view('vendors::vendors_locations');
+        $vendors = \Modules\Vendors\Entities\Vendor::get();
+        return view('vendors::vendors_locations', [
+            'vendors' => $vendors,
+            'vendorLocations' => \Modules\Vendors\Entities\Vendor::pluck('location'),
+        ]);
+    }
+
+    public function storeLocation(Request $request){
+        $vendor = \Modules\Vendors\Entities\Vendor::whereId($request->vendor_id)->first();
+        $vendor->location = $request->location;
+    }
+    public function getVendorLocation($id){
+        $vendor = \Modules\Vendors\Entities\Vendor::whereId($id)->first();
+        return $vendor; 
+        return $vendor->location;
     }
 }

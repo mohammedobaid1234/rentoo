@@ -15,6 +15,8 @@ Route::middleware(['auth'])->group(function() {
     Route::prefix('vendors')->group(function() {
         Route::get('manage', 'VendorsController@manage');
         Route::get('map', 'VendorsController@map');
+        Route::get('storeLocation', 'VendorsController@storeLocation');
+        Route::get('getVendorLocation/{id}', 'VendorsController@getVendorLocation');
         Route::get('datatable', 'VendorsController@datatable');
     });
     Route::resource('vendors', VendorsController::class);

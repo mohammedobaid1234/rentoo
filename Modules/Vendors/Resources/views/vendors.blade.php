@@ -49,7 +49,41 @@
                     }
                 }
             });
-          
+            setTimeout(() => {
+                $('button[data-action="vendor-update"]').click(function () {  
+                    $id = $(this).attr('data-id');
+                    $.get($("meta[name='BASE_URL']").attr("content") + '/vendors/getVendorLocation/' + $id, '',
+                        function (data, textStatus, jqXHR) {
+                            $btn = $('#vendor .modal-body').append(`
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div id="map" style="width: 100%; height: 400px; margin-top : 10px"></div>
+                                        <input name="location" value="${data.location}" hidden />
+                                    </div>
+                                </div>
+                            `);
+                            if(data){
+                                console.log(data.location);
+                                data.location === null ?  initMap() :  initMap(JSON.parse(data.location).lat, JSON.parse(data.location).lng)
+                            } 
+                        },
+                        
+                    );
+                    // console.log($('#vendor .modal-body'));
+                    // initMap()
+                })
+                $('button[data-action="vendor-create"]').click(function () {  
+                    $('#vendor .modal-body').append(`
+                        <div class="row">
+                            <div class="col-12">
+                                <div id="map" style="width: 100%; height: 400px; margin-top : 10px"></div>
+                                <input name="location" value="" hidden />
+                            </div>
+                        </div>
+                    `);
+                    initMap();
+                })
+            }, 1000);
             $('#vendor').briskForm({
                 resource: {
                     api: $("meta[name='BASE_URL']").attr("content"),
@@ -99,5 +133,31 @@
                 time_24hr: true
             });
         }, 1000);
+    </script>
+    <script>
+        // initMap();
+        
+        function initMap(lat =31.469868, lng =  34.388081) {
+             const map = new google.maps.Map(document.getElementById("map"), {
+                zoom: 15,
+                center: { lat:lat , lng: lng },
+             });
+            var marker = new google.maps.Marker({
+              position:{ lat:lat , lng: lng },
+              map: map,
+            });
+            map.addListener("click", (mapsMouseEvent) => {
+            marker.setPosition(mapsMouseEvent.latLng);
+            $('input[name="location"]').val(JSON.stringify(mapsMouseEvent.latLng.toJSON(), null, 2) );
+            console.log($('input[name="location"]').val());
+            // $location =  JSON.stringify(mapsMouseEvent.latLng.toJSON(), null, 2)
+            });
+  
+        }
+
+        window.initMap = initMap;
+    
+       
+    
     </script>
 @endsection

@@ -1,7 +1,18 @@
 @extends('layouts.app')
 
 @section('content')
-<div id="map" style="width: 500px; height: 500px;"></div>
+<div class="card">
+  <div class="card-body">
+    <h5 class="card-title">Card title</h5>
+    <select class="form-select" aria-label="Default select example">
+      <option selected>Open this select menu</option>
+      @foreach ($vendors as $item)
+        <option value="{{$item->id}}">{{$item->company_name}}</option>
+      @endforeach
+    </select>
+    <div id="map" style="width: 100%; height: 400px; margin-top : 10px"></div>
+  </div>
+</div>
 
 
 @endsection
@@ -11,14 +22,28 @@
 @endsection
 
 @section('javascript')
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+<script>let vendor_icon ='/public/themes/Falcon/v2.8.0/googleIcon/icons8-shop-32.png'</script>
+<script>let $vendorLocations = @json($vendorLocations)</script>
 <script>
+  console.log($vendorLocations);
+   let markers = [];
     initMap();
-    
+    console.log(vendor_icon);
     function initMap() {
       const map = new google.maps.Map(document.getElementById("map"), {
-        zoom: 15,
+        zoom: 12,
         center: { lat: 31.469868, lng: 34.388081 },
       });
+      $vendorLocations.forEach(element => {
+        console.log(element);
+        var marker = new google.maps.Marker({
+            position:JSON.parse(element),
+            map: map,
+            icon: vendor_icon,
+        });
+      });
+      
       // var marker = new google.maps.Marker({
       //     position: { lat: 31.469868, lng: 34.388081 },
       //     map: map,
@@ -28,7 +53,7 @@
       //   position: { lat: 31.469868, lng: 34.388081 },
       // });
       // infoWindow.open(map);
-  // Configure the click listener.
+     // Configure the click listener.
       map.addListener("click", (mapsMouseEvent) => {
         // Close the current InfoWindow.
         // infoWindow.close();
@@ -36,12 +61,12 @@
         // infoWindow = new google.maps.InfoWindow({
         //   position: mapsMouseEvent.latLng,
         // });
-        var marker = new google.maps.Marker({
-          position:JSON.stringify(mapsMouseEvent.latLng.toJSON(), null, 2),
-          map: map,
-        });
-        console.log(JSON.stringify(mapsMouseEvent.latLng.toJSON(), null, 2));
-        // marker.setPosition(mapsMouseEvent.latlng);
+        // var marker = new google.maps.Marker({
+        //   position:mapsMouseEvent.latLng,
+        //   map: map,
+        // });
+        marker.setPosition(mapsMouseEvent.latLng);
+        // $location =  JSON.stringify(mapsMouseEvent.latLng.toJSON(), null, 2)
         // infoWindow.setContent(
         //   JSON.stringify(mapsMouseEvent.latLng.toJSON(), null, 2)
         // );
@@ -68,22 +93,8 @@
 
     window.initMap = initMap;
 
-    function getLatLng(address) {
-    axios.get('https://maps.googleapis.com/maps/api/geocode/json', {
-        params: {
-        address: address,
-        key: 'AIzaSyAojCdQjz5W8nFiXQvxg9gmoFGCs_PK35Q'
-        }
-    })
-    .then(function(response) {
-        var lat = response.data.results[0].geometry.location.lat;
-        var lng = response.data.results[0].geometry.location.lng;
-        console.log(lat, lng);
-    })
-    .catch(function(error) {
-        console.log(error);
-    });
-    }
+   
 
-  </script>
+</script>
+
 @endsection
