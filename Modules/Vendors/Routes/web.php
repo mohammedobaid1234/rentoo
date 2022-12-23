@@ -27,6 +27,12 @@ Route::middleware(['auth'])->group(function() {
     });
     Route::resource('type_of_vendors', TypeOFVendorController::class);
 
+    Route::prefix('vendor_offer')->group(function() {
+        Route::get('manage', 'OffersController@manage');
+        Route::get('datatable', 'OffersController@datatable');
+    });
+    Route::resource('vendor_offer', OffersController::class);
+
     Route::prefix('times_label')->group(function() {
         Route::get('manage', 'TimesLabelController@manage');
         Route::get('datatable', 'TimesLabelController@datatable');

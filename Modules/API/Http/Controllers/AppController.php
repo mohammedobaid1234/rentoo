@@ -41,7 +41,7 @@ class AppController extends Controller{
         return response()->json(['message' => 'ok']);
 
     }
-    public function homePage(){
+    public function homePage(Request $request){
         $user = auth()->guard('api')->user();
         $typeOfVendor = \Modules\Vendors\Entities\TypeOFVendor::get();
         $typeOfVendorCollection = collect([]);
@@ -51,9 +51,55 @@ class AppController extends Controller{
             $typeOfVendorCollection->add($data);
         }
         $userLocation =json_decode($user->location);
+        $offersCollection = collect([]);
         $offers = \Modules\Vendors\Entities\Offer::limit(4)->get();
-        return $offers;
-        $restaurants =  $this->NearestVendorsByType($userLocation->lat, $userLocation->long,'1',$user->province_id);
+        foreach ($offers as $item) {
+            $data['id'] = $item->id;
+            $data['name'] = $item->getTranslations('name')['ar'];
+            $data['image_url'] = $item->image_url;
+            $offersCollection->add($data);
+        }
+        $vendors =  $this->NearestVendorsByType($userLocation->lat, $userLocation->long,$request->type_id??'1');
+        $nearestProductsCollections = collect([]);
+        foreach ($vendors as $vendor) {
+            // dd(json_decode($vendor->location)->lng);
+            foreach ($vendor->products as $item) {
+                $data['id'] = $item->id;
+                $data['name'] = $item->getTranslations('name')['ar'];
+                $data['image_url'] = $item->image_url;
+                $data['vendor_name'] =  $vendor->company_name;
+                $data['address'] = getLocationFromLatAndLong(json_decode($vendor->location)->lat,json_decode($vendor->location)->lng );
+                $nearestProductsCollections->add($data);
+            }
+        }
+        $bestProductsForYou = collect([]);
+        $userTags =  $user->tags->pluck('tag_id');
+      
+        $products = \Modules\Products\Entities\Product::with('attributes.attribute')->whereHas('tags', function($q)use($userTags){
+            $q->whereIn('tag_id',$userTags);
+        })->get();
+        $attributeCollection = collect([]);
+        foreach ($products as $product) {
+            $data['id'] = $product->id;
+            $data['name'] = $item->getTranslations('name')['ar'];
+            $data['image_url'] = $item->image_url;
+            $data['vendor_name'] =  $vendor->company_name;
+            foreach ($product->attributes as $attribute) {
+                $attributeData['id'] = $attribute->attribute->id;
+                $attributeData['name'] = $attribute->attribute->getTranslations('name')['ar'];
+                $attributeData['value'] = $attribute->value;
+                $attributeCollection->add($attributeData);
+            }
+            $data['attributes'] = $attributeCollection;
+            $bestProductsForYou->add($data);
+        }
+        return response()->json([
+            'data' => [
+                'offers' => $offersCollection,
+                'nearestProductsCollections' => $nearestProductsCollections,
+                'bestProductsForYou' => $bestProductsForYou
+            ]
+        ]);
 
     }
 }

@@ -58,10 +58,6 @@
                                 <label for="" class="col-1 control-label">{{__('المورد')}}</label>
                                 <div class="col-7">
                                     <select name="vendor_id" class="js-example-basic-single form-select form-control "  data-placeholder="اختار المورد" data-options_source="vendors">
-                                        {{-- <option value="">{{__('Choose Vendor ...')}}</option>
-                                        @foreach ($vendors as $vendor)
-                                            <option value="{{$vendor->id}}">{{$vendor->name}}</option> --}}
-                                        {{-- @endforeach --}}
                                     </select>
                                     <p class="invalid-feedback"></p>
                                 </div>

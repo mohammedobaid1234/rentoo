@@ -71,7 +71,16 @@ class CategoryAttributeTypesController extends Controller{
                     $attribute_list->save();
                 }
             }
+            if ($request->hasFile('image') && $request->file('image')[0]->isValid()) {
+                $extension = strtolower($request->file('image')[0]->extension());
+                $media_new_name = strtolower(md5(time())) . "." . $extension;
+                $collection = "attribute-image";
 
+                $attribute_category->addMediaFromRequest('image[0]')
+                    ->usingFileName($media_new_name)
+                    ->usingName($request->file('image')[0]->getClientOriginalName())
+                    ->toMediaCollection($collection);
+            }
             \DB::commit();
 
         } catch (\Exception $e) {
@@ -106,6 +115,16 @@ class CategoryAttributeTypesController extends Controller{
                         'show' => ['text' => 'category.id', 'id' => 'category.id']
                     ]
                 ],
+                [
+                    'title' => 'صورة المواصفة',
+                    'input' => 'input',
+                    'type' => 'file',
+                    'name' => 'image',
+                    'operations' => [
+                        'show' => ['text' => 'image'],
+                        'update' => ['text' => 'image'],
+                    ]
+                ]
                 // ['title' => 'الاختيارات', 'input' => 'input', 'name' => 'list_name[]', 'required' => false ],
 
                 

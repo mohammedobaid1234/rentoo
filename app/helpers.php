@@ -2,8 +2,8 @@
 
 use Illuminate\Support\Facades\Http;
 
-function getLocationFromLatAndLong($lat  ,  $long , $lang = 'en'){
-    $location= $lat. '%2C' . $long;
+function getLocationFromLatAndLong($lat  ,  $lng , $lang = 'ar'){
+    $location= $lat. '%2C' . $lng;
     $response = Http::get('https://api.opencagedata.com/geocode/v1/json', [
         'q' => $location,
         'key' => config('services.opencage')['key'],

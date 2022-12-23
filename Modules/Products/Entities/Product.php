@@ -69,6 +69,7 @@ class Product extends Model implements HasMedia{
         return $this->hasMany(\Modules\Products\Entities\ProductAttribute::class, 'product_id');
     }
     public function tags(){
+        // return $this->belongsToMany(\Modules\Products\Entities\ProductTag::class, 'pm_product_tag');
         return $this->hasMany(\Modules\Products\Entities\ProductTag::class, 'product_id');
     }
 

@@ -150,9 +150,14 @@
                                 <a class="nav-link" href="{{ url('/') }}/type_of_vendors/manage">{{ __('انواع الموردين') }}</a>
                             </li>
                             @endif
-                            @if(\Auth::user()->can('vendors_module_times_labelmanage'))
+                            @if(\Auth::user()->can('vendors_module_times_label_manage'))
                             <li class="nav-item @if(isset($activePage['vendors']) && $activePage['vendors'] == 'times_label') active @endif">
                                 <a class="nav-link" href="{{ url('/') }}/times_label/manage">{{ __('انواع التوقيتات') }}</a>
+                            </li>
+                            @endif
+                            @if(\Auth::user()->can('vendors_module_vendor_offer_manage'))
+                            <li class="nav-item @if(isset($activePage['vendors']) && $activePage['vendors'] == 'vendor_offer') active @endif">
+                                <a class="nav-link" href="{{ url('/') }}/vendor_offer/manage">{{ __(' العروضات') }}</a>
                             </li>
                             @endif
 

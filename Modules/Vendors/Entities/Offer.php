@@ -21,7 +21,7 @@ class Offer extends Model  implements HasMedia{
 
 
     public function getImageUrlAttribute(){
-        $image = $this->getMedia('offer-image')->first();
+        $image = $this->getMedia('attribute-image')->first();
 
         if($image){
             return url('/') . '/storage/app/public/' . $image->id . '/' . $image->file_name;
@@ -29,5 +29,9 @@ class Offer extends Model  implements HasMedia{
 
         return asset('/public/assets/images/avatars/avatar6.png');
 
+    }
+
+    public function vendor(){
+        return $this->belongsTo(\Modules\Vendors\Entities\Vendor::class, 'vendor_id');
     }
 }

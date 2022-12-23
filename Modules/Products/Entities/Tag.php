@@ -17,4 +17,8 @@ class Tag extends Model{
     public function vendor_type(){
         return $this->belongsTo(\Modules\Vendors\Entities\TypeOFVendor::class, 'vendor_type_id');
     }
+
+    public function users(){
+        return $this->hasMany(\Modules\Products\Entities\UserTag::class);
+    }
 }

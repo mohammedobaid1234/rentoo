@@ -37,9 +37,17 @@ Route::prefix('category_attribute_types')->as('category_attribute_types.')->grou
     Route::get('/datatable', 'CategoryAttributeTypesController@datatable')->name('datatable');
     Route::get('/list/{id}', 'CategoryAttributeTypesController@list')->name('list');
 });
+Route::resource('category_attribute_types', CategoryAttributeTypesController::class);
+
 
 Route::prefix('tags')->as('tags.')->group(function() {
     Route::get('/manage', 'TagsController@manage')->name('manage');
     Route::get('/datatable', 'TagsController@datatable')->name('datatable');
 });
 Route::resource('tags', TagsController::class);
+
+Route::prefix('brands')->as('brands.')->group(function() {
+    Route::get('/manage', 'TagsController@manage')->name('manage');
+    Route::get('/datatable', 'TagsController@datatable')->name('datatable');
+});
+Route::resource('brands', TagsController::class);

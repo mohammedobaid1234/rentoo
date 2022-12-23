@@ -5,7 +5,7 @@ namespace App\Traits;
   
 trait NearestVendors{
     public function  NearestVendorsByTypeWithFeature($lat, $lon, $feature = '1'  ,$type = '1', $radius = 100000){
-        $data = \Modules\Vendors\Entities\Vendors::selectRaw("*,
+        $data = \Modules\Vendors\Entities\Vendor::selectRaw("*,
                          ( 6371000 * acos( cos( radians(?) ) *
                            cos( radians( CAST(JSON_EXTRACT(vn_vendors.location, '$.lat') as double) ) )
                            * cos( radians( CAST(JSON_EXTRACT(vn_vendors.location, '$.long') as double) ) - radians(?)
@@ -31,8 +31,8 @@ trait NearestVendors{
         }
         return $finalData;
     }
-    public function  NearestVendorsByType($lat, $lon,$type = '1',$province_id, $radius = 100000){
-        $data = \Modules\Vendors\Entities\Vendors::selectRaw("*,
+    public function  NearestVendorsByType($lat, $lon,$type = '1', $radius = 100000){
+        $data = \Modules\Vendors\Entities\Vendor::selectRaw("*,
                          ( 6371000 * acos( cos( radians(?) ) *
                            cos( radians( CAST(JSON_EXTRACT(vn_vendors.location, '$.lat') as double) ) )
                            * cos( radians( CAST(JSON_EXTRACT(vn_vendors.location, '$.long') as double) ) - radians(?)
@@ -59,7 +59,7 @@ trait NearestVendors{
           return $finalData;
     }
     public function  NearestVendorsByTypeWithoutRadius($lat, $lon,$type = '1'){
-        $data = \Modules\Vendors\Entities\Vendors::selectRaw("*,
+        $data = \Modules\Vendors\Entities\Vendor::selectRaw("*,
                          ( 6371000 * acos( cos( radians(?) ) *
                            cos( radians( CAST(JSON_EXTRACT(vn_vendors.location, '$.lat') as double) ) )
                            * cos( radians( CAST(JSON_EXTRACT(vn_vendors.location, '$.long') as double) ) - radians(?)
@@ -81,7 +81,7 @@ trait NearestVendors{
           return $finalData;
     }
     public function  SpesficVendorsById($lat, $lon,$vendor_id){
-        $data = \Modules\Vendors\Entities\Vendors::selectRaw("*,
+        $data = \Modules\Vendors\Entities\Vendor::with('products')->selectRaw("*,
                          ( 6371000 * acos( cos( radians(?) ) *
                            cos( radians( CAST(JSON_EXTRACT(vn_vendors.location, '$.lat') as double) ) )
                            * cos( radians( CAST(JSON_EXTRACT(vn_vendors.location, '$.long') as double) ) - radians(?)
@@ -114,7 +114,7 @@ trait NearestVendors{
     }
 
     public function  SpesficVendorsByIdWithProductFeature($lat, $lon,$vendor_id,$feature){
-        $data = \Modules\Vendors\Entities\Vendors::with(['products','products.type'])->selectRaw("*,
+        $data = \Modules\Vendors\Entities\Vendor::with(['products','products.type'])->selectRaw("*,
                          ( 6371000 * acos( cos( radians(?) ) *
                            cos( radians( CAST(JSON_EXTRACT(vn_vendors.location, '$.lat') as double) ) )
                            * cos( radians( CAST(JSON_EXTRACT(vn_vendors.location, '$.long') as double) ) - radians(?)
@@ -133,7 +133,7 @@ trait NearestVendors{
             
     }
     public function  NearestAllVendors($lat, $lon, $radius = 100000){
-        $data = \Modules\Vendors\Entities\Vendors::selectRaw("*,
+        $data = \Modules\Vendors\Entities\Vendor::selectRaw("*,
                          ( 6371000 * acos( cos( radians(?) ) *
                            cos( radians( CAST(JSON_EXTRACT(vn_vendors.location, '$.lat') as double) ) )
                            * cos( radians( CAST(JSON_EXTRACT(vn_vendors.location, '$.long') as double) ) - radians(?)
@@ -155,7 +155,7 @@ trait NearestVendors{
           return $finalData;
     }
     public function spesficVendorDistance($lat, $lon, $vendor_id){
-            $data = \Modules\Vendors\Entities\Vendors::selectRaw("*,
+            $data = \Modules\Vendors\Entities\Vendor::selectRaw("*,
             ( 6371000 * acos( cos( radians(?) ) *
               cos( radians( CAST(JSON_EXTRACT(vn_vendors.location, '$.lat') as double) ) )
               * cos( radians( CAST(JSON_EXTRACT(vn_vendors.location, '$.long') as double) ) - radians(?)

@@ -78,4 +78,9 @@ class User extends Authenticatable implements  HasMedia{
     //     return $this->lastLoginAt();
     // }
 
+   public function tags(){
+    return $this->hasMany(\Modules\Products\Entities\UserTag::class);
+        // return $this->belongsToMany(\Modules\Products\Entities\Tag::class, 'pm_user_tag');
+   }
+
 }
