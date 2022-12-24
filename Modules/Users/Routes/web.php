@@ -34,6 +34,7 @@ Route::middleware(['auth'])->group(function() {
     Route::prefix('registrations')->as('registrations.')->group(function() {
         Route::get('/manage', 'UserRegistrationController@manage')->name('manage');
         Route::get('/datatable', 'UserRegistrationController@datatable')->name('datatable');
+        Route::post('/changeStatus/{id}', 'UserRegistrationController@changeStatus')->name('changeStatus');
     });
 
     Route::prefix('contact_us')->as('contact_us.')->group(function() {

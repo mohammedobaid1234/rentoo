@@ -34,9 +34,18 @@ class UserRegistrationController extends Controller{
             ['title' => 'الاسم المكان', 'column' => 'product.name.ar' ],
             ['title' => 'التوقيت', 'column' => 'time.label.ar'],
             ['title' => 'السعر', 'column' => 'price'],
+            ['title' => 'الحالة', 'column' => 'status','formatter' => 'status'],
             ['title' => 'تاريخ التسجيل', 'column' => 'created_at'],
+            ['title' => 'الإجراءات', 'column' => 'operations', 'formatter' => 'operations']
+
         ];
 
         return response()->json($this->datatableInitializer($request, $eloquent, $filters, $columns));
+    }
+    public function changeStatus(Request $request,$id){
+        $item = \Modules\Users\Entities\UserRegistration::whereId($id)->first();
+        $item->status = $request->status;
+        $item->save();
+        return response()->json(['message', 'ok']);
     }
 }
