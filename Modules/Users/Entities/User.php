@@ -21,7 +21,7 @@ class User extends Authenticatable implements  HasMedia{
 
     protected $hidden = ['password', 'remember_token'];
 
-    protected $casts = ['email_verified_at' => 'datetime', 'created_at' => 'datetime:Y-m-d H:i:s a'];
+    protected $casts = ['email_verified_at' => 'datetime', 'created_at' => 'datetime:Y-m-d H:i:s a', 'location'=> 'json'];
 
     protected $appends = ['personal_image_url'];
 

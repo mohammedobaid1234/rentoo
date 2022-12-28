@@ -96,6 +96,7 @@ class UserController extends Controller{
             }
         }
     }
+   
     // public function sendCodeToApi(Request $request){
     //     $validator = \Validator::make($request->all(), [
     //         'code' => 'required|min:4',

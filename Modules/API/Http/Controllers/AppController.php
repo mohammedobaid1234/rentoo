@@ -9,6 +9,11 @@ use Illuminate\Routing\Controller;
 class AppController extends Controller{
     use \App\Traits\NearestDriver;
     use \App\Traits\NearestVendors;
+    public function __construct(){
+        $this->middleware('auth:api', [
+            'except' => []
+        ]);
+    }
     public function getTags(){
         $tags = \Modules\Products\Entities\Tag::get();
         $tagsCollection = collect([]);
@@ -100,6 +105,21 @@ class AppController extends Controller{
                 'bestProductsForYou' => $bestProductsForYou
             ]
         ]);
+
+    }
+    public function profile(){
+        $user = auth()->guard('api')->user();
+        return $user;
+    }
+
+    public function updateProfile(Request $request){
+        $user = auth()->guard('api')->user();
+        $user->first_name = $request->first_name;
+        $user->email = $request->email;
+        $user->mobile_no = $request->mobile_no;
+        $user->address = $request->address;
+        $user->save();
+        return response()->json(['message' => 'ok', 'data' => $user]);
 
     }
 }

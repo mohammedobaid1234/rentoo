@@ -28,3 +28,5 @@ Route::post('/logout', 'UserController@logout');
 Route::get('/getTags', 'AppController@getTags');
 Route::post('/addTagsToUser', 'AppController@addTagsToUser');
 Route::get('/homePage', 'AppController@homePage');
+Route::get('/profile', 'AppController@profile');
+Route::post('/updateProfile', 'AppController@updateProfile');
