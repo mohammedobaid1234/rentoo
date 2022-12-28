@@ -19,7 +19,7 @@ class User extends Authenticatable implements  HasMedia{
     use InteractsWithMedia;
     protected $table = 'um_users';
 
-    protected $hidden = ['password', 'remember_token'];
+    protected $hidden = ['password', 'remember_token', 'media'];
 
     protected $casts = ['email_verified_at' => 'datetime', 'created_at' => 'datetime:Y-m-d H:i:s a', 'location'=> 'json'];
 
@@ -71,8 +71,20 @@ class User extends Authenticatable implements  HasMedia{
     public function scopeWhereEmailLike($query, $email){
         return $query->where('email', 'like', ('%' . trim($email) . '%'));
     }
+    public function registerMediaConversions(\Spatie\MediaLibrary\MediaCollections\Models\Media  $media = null): void{
+        $this->addMediaConversion('thumb')
+              ->width(400)
+              ->height(400);
+    }
     public function getPersonalImageUrlAttribute(){
-        return asset('/public/themes/Falcon/v2.8.0/assets/img/team/avatar.png');
+        $image = $this->getMedia('user-image')->first();
+
+        if($image){
+            return url('/') . '/storage/app/public/' . $image->id . '/' . $image->file_name;
+        }
+
+        return asset('/public/assets/images/avatars/avatar6.png');
+
     }
     // public function getLastLoginAtAttribute(){
     //     return $this->lastLoginAt();

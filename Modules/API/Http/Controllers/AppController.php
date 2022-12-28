@@ -122,4 +122,49 @@ class AppController extends Controller{
         return response()->json(['message' => 'ok', 'data' => $user]);
 
     }
+    public function changePassWhenLogin(Request $request){
+        $user = auth()->guard('api')->user();
+        $request->validate([
+            'current_password' => 'required',
+            'password' => 'required',
+        ]);
+        if($request->password != $request->confirm_password){
+            return response()->json(['message' => 'The confirm password and password not match'],422);
+        }
+        if(!\Hash::check($request->current_password, $user->password )){
+            return response()->json(['message' => 'The Current Password Not Correct'],422);
+        }
+        if(strlen($request->password) < 6){
+            return response()->json([
+                'message' => 'Password less than 6 characters'
+            ],403);
+       }
+        
+        $user = \Modules\Users\Entities\User::whereId($user->id)->first();
+        $user->password = \Hash::make($request->password) ;
+        $user->save();
+        return response()->json([
+            'data' => [
+                'message' => 'ok',
+            ]
+        ]);
+    }
+    public function addImage(Request $request ){
+        $user =auth()->guard('api')->user();
+        $user = \Modules\Users\Entities\User::whereId($user->id)->first();
+        if ($request->hasFile('file') && $request->file('file')->isValid()) {
+            $extension = strtolower($request->file('file')->extension());
+            $media_new_name = strtolower(md5(time())) . "." . $extension;
+            $collection = "user-image";
+
+            $user->addMediaFromRequest('file')
+                ->usingFileName($media_new_name)
+                ->usingName($request->file('file')->getClientOriginalName())
+                ->toMediaCollection($collection);
+                $user->save();
+                return response()->json([
+                    'data' => $user->personal_image_url
+                ]);
+        }
+    }
 }

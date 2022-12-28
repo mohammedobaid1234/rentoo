@@ -29,4 +29,6 @@ Route::get('/getTags', 'AppController@getTags');
 Route::post('/addTagsToUser', 'AppController@addTagsToUser');
 Route::get('/homePage', 'AppController@homePage');
 Route::get('/profile', 'AppController@profile');
+Route::post('/changePassWhenLogin', 'AppController@changePassWhenLogin');
 Route::post('/updateProfile', 'AppController@updateProfile');
+Route::post('/addImage', 'AppController@addImage');
