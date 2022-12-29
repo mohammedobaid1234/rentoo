@@ -114,10 +114,21 @@ class AppController extends Controller{
 
     public function updateProfile(Request $request){
         $user = auth()->guard('api')->user();
-        $user->first_name = $request->first_name;
-        $user->email = $request->email;
-        $user->mobile_no = $request->mobile_no;
-        $user->address = $request->address;
+        $validator = \Validator::make($request->all(), [
+            'email' => 'nullable|email:filter|unique:um_users,email,'.$user->id,
+            'mobile_no' => 'nullable|min:8|max:13|unique:um_users,mobile_no,'.$user->id,
+        ]);
+        if ($validator->fails()) {
+            return response()->json([
+                'message' => implode("\n", $validator->messages()->all())],403);
+        } 
+          
+        $user = auth()->guard('api')->user();
+        // $user->first_name = $request->first_name;
+        $request->first_name ? $user->first_name = $request->first_name : '';
+        $request->email ? $user->email = $request->email : '';
+        $request->mobile_no ? $user->mobile_no = $request->mobile_no : '';
+        $request->address ? $user->address = $request->address : '';
         $user->save();
         return response()->json(['message' => 'ok', 'data' => $user]);
 
