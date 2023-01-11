@@ -90,7 +90,7 @@ class UserController extends Controller{
                 return response()->json([ 'message' => $message],403);
 
             } else {
-                $message = __('wrong email');
+                $message = __('wrong phone number of password');
 
                 return response()->json([ 'message' => $message],403);
             }
