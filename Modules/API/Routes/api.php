@@ -21,7 +21,7 @@ Route::post('/signUp', 'UserController@signUp');
 Route::post('/login', 'UserController@login');
 Route::post('/verifyCode', 'UserController@verifyCode');
 Route::post('/sendCodeToApi', 'UserController@sendCodeToApi');
-Route::post('/changePasswordWhenForging', 'UserController@changePassword');
+Route::post('/forgetPassword', 'UserController@changePasswordWhenForging');
 Route::post('/logout', 'UserController@logout');
 
 
