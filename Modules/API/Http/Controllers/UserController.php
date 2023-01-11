@@ -195,7 +195,9 @@ class UserController extends Controller{
                 'message' => implode("\n", $validator->messages()->all())],403);
         }
         $user = \Modules\Users\Entities\User::where('mobile_no', $request->mobile_no)->first();
-
+        if(!$user){
+            return response()->json(['message' => 'User Not Found'],403);
+        }
         $user->password = \Hash::make($request->password);
 
         if ($user->save()) {
