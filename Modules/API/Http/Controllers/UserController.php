@@ -147,7 +147,7 @@ class UserController extends Controller{
                         , ['user_id' => $user->id]);
                     }
                     $user['access_token'] = $user->createToken('mobile_no')->accessToken;
-                $massege = __('ok');
+                $massege = __('Verified Successfully');
                 return response()->json([  'message' => $massege, 'user' => $user]);
                 }
             } else {
@@ -182,29 +182,25 @@ class UserController extends Controller{
         return response()->json([  'message' => $message]);
     }
 
-    public function changePassword(Request $request){
+
+    public function changePasswordWhenForging(Request $request){
         $rules = [
-            'old_password' => 'required|min:6',
             'password' => 'required|min:6',
             'confirm_password' => 'required|min:6|same:password',
+            'mobile_no' => 'required'
         ];
         $validator = \Validator::make($request->all(), $rules);
         if ($validator->fails()) {
             return response()->json([
                 'message' => implode("\n", $validator->messages()->all())],403);
         }
-        $user = auth('api')->user();
-        if (!\Hash::check($request->old_password, $user->password)) {
-            $message = __('old_password'); //wrong old
-            return response()->json([ 'message' => $message,
-                'validator' => $validator],403);
-        }
+        $user = \Modules\Users\Entities\User::where('mobile_no', $request->mobile_no)->first();
 
         $user->password = \Hash::make($request->password);
 
         if ($user->save()) {
             $user->refresh();
-            $message = __('ok');
+            $message = __('Change Password Successfully');
             return response()->json([  'message' => $message]);
         }
         $message = __('whoops');
